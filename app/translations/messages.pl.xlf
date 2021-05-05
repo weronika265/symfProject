@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="pl" datatype="plaintext" original="file.ext">
+        <body>
+            <trans-unit id="label_actions">
+                <source>label_actions</source>
+                <target>Akcje</target>
+            </trans-unit>
+            <trans-unit id="label_id">
+                <source>label_id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label_title">
+                <source>label_title</source>
+                <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="label_content">
+                <source>label_content</source>
+                <target>Zawartość</target>
+            </trans-unit>
+            <trans-unit id="label_tags">
+                <source>label_tags</source>
+                <target>Tagi</target>
+            </trans-unit>
+            <trans-unit id="message_empty_list">
+                <source>message_empty_list</source>
+                <target>Pusta lista.</target>
+            </trans-unit>
+            <trans-unit id="message_record_not_found">
+                <source>message_record_not_found</source>
+                <target>Nie znaleziono rekordu.</target>
+            </trans-unit>
+            <trans-unit id="title_record_list">
+                <source>title_record_list</source>
+                <target>Lista rekordów</target>
+            </trans-unit>
+            <trans-unit id="title_view_record">
+                <source>title_view_record</source>
+                <target>Wyświetl rekord</target>
+            </trans-unit>
+
+
+            <trans-unit id="label_account">
+                <source>label_account</source>
+                <target>Konto</target>
+            </trans-unit>
+            <trans-unit id="label_contacts">
+                <source>label_contacts</source>
+                <target>Kontakty</target>
+            </trans-unit>
+            <trans-unit id="label_calendar">
+                <source>label_calendar</source>
+                <target>Kalendarz</target>
+            </trans-unit>
+            <trans-unit id="label_recent_upcoming_events">
+                <source>label_recent_upcoming_events</source>
+                <target>Aktualne i nadchodzące wydarzenia</target>
+            </trans-unit>
+            <trans-unit id="label_categories">
+                <source>label_categories</source>
+                <target>Kategorie</target>
+            </trans-unit>
+            <trans-unit id="message_recent_events">
+                <source>message_recent_events</source>
+                <target>Aktualne wydarzenia</target>
+            </trans-unit>
+            <trans-unit id="message_upcoming_events">
+                <source>message_upcoming_events</source>
+                <target>Nadchodzące wydarzenia</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
