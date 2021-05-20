@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_contact_list'|trans }}
+{% endblock %}
+
+{% block body %}
+    <h1>{{ 'title_contact_list'|trans }}</h1>
+    {% if contacts is defined and contacts|length %}
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>{{ 'label_id'|trans }}</th>
+                <th>{{ 'label_first_name'|trans }}</th>
+                <th>{{ 'label_surname'|trans }}</th>
+                <th>{{ 'label_phone_number'|trans }}</th>
+                <th>{{ 'label_email'|trans }}</th>
+                <th>{{ 'label_actions'|trans }}</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for contact in contacts %}
+                <tr>
+                    <td>{{ contact.id }}</td>
+                    <td>{{ contact.firstName }}</td>
+                    <td>{{ contact.surname }}</td>
+                    <td>{{ contact.phoneNumber }}</td>
+                    <td>{{ contact.email }}</td>
+                    <td>
+                        <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
+                            {{ 'action_view'|trans }}
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>
+            {{ 'message_empty_list'|trans }}
+        </p>
+    {% endif %}
+{% endblock %}

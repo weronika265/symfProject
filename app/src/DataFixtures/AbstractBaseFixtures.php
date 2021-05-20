@@ -8,7 +8,6 @@ namespace App\DataFixtures;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
-use Faker\Generator;
 
 /**
  * Class AbstractBaseFixtures.
@@ -20,12 +19,14 @@ abstract class AbstractBaseFixtures extends Fixture
      *
      * @var \Faker\Generator
      */
-    protected Generator $faker;
+    protected $faker;
 
     /**
      * Persistence object manager.
+     *
+     * @var \Doctrine\Persistence\ObjectManager
      */
-    protected ObjectManager $manager;
+    protected $manager;
 
     /**
      * Load.
