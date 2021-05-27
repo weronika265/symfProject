@@ -6,6 +6,8 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -37,6 +39,20 @@ class Category
     private $name;
 
     /**
+     * Events.
+     *
+     * @var Event
+     *
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
+     */
+    private $events;
+
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+    }
+
+    /**
      * Getter for Id.
      *
      * @return int|null Result
@@ -64,5 +80,43 @@ class Category
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    /**
+     * Getter for Event.
+     *
+     * @return Collection|Event[] Event
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    /**
+     * Add Event.
+     *
+     * @param Event $event Event
+     */
+    public function addEvent(Event $event): void
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCategory($this);
+        }
+    }
+
+    /**
+     * Remove Event.
+     *
+     * @param Event $event Event
+     */
+    public function removeEvent(Event $event): void
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getCategory() === $this) {
+                $event->setCategory(null);
+            }
+        }
     }
 }

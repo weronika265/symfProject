@@ -5,21 +5,29 @@
 {% endblock %}
 
 {% block body %}
+
+    {#{% include 'menu.html.twig' %}#}
+
     <h1>{{ 'title_contact_list'|trans }}</h1>
-    {% if contacts is defined and contacts|length %}
+    {% if pagination is defined and pagination.items|length %}
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_first_name'|trans }}</th>
-                <th>{{ 'label_surname'|trans }}</th>
-                <th>{{ 'label_phone_number'|trans }}</th>
-                <th>{{ 'label_email'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'contact.id') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_first_name'|trans, 'contact.firstName') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_phone_number'|trans, 'contact.phoneNumber') }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'contact.email') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
-            {% for contact in contacts %}
+            {% for contact in pagination.items %}
                 <tr>
                     <td>{{ contact.id }}</td>
                     <td>{{ contact.firstName }}</td>
@@ -30,11 +38,22 @@
                         <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
+                        <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_edit'|trans }}">
+                            {{ 'action_edit'|trans }}
+                        </a>
+                        <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
+                            {{ 'action_delete'|trans }}
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+
+        <div class="navigation text-center">
+            {{ knp_pagination_render(pagination) }}
+        </div>
+
     {% else %}
         <p>
             {{ 'message_empty_list'|trans }}

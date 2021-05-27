@@ -63,6 +63,16 @@ class Event
     private $description;
 
     /**
+     * Category.
+     *
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
      * Getter for Id.
      *
      * @return int|null Result
@@ -130,5 +140,25 @@ class Event
     public function setDescription(?string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * Getter for Category.
+     *
+     * @return Category|null Category
+     */
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    /**
+     * Setter for Category.
+     *
+     * @param Category|null $category Category
+     */
+    public function setCategory(?Category $category): void
+    {
+        $this->category = $category;
     }
 }

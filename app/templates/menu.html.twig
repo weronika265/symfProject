@@ -1,5 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    // TODO add menu bar
+    <div id="dropdown">
+        <div id="accountBar">
+            {{ 'label_account'|trans }}
+        </div>
+        <div id="dropdownContent">
+            <a href="#">My account</a>
+            <a href="#">Logout</a>
+        </div>
+    </div>
+
+    <div class="sidenav" style="padding-top: 25px;">
+        <a href="{{ url('contact_index') }}">
+            {{ 'label_contacts'|trans }}
+        </a>
+        <a href="#">
+            {{ 'label_calendar'|trans }}
+        </a>
+        <a href="{{ url('personal_info_index') }}">
+            {# TODO Similiar to WelcomeController:index() . #}
+            {{ 'label_recent_upcoming_events'|trans }}
+        </a>
+        <a href="{{ url('category_index') }}">
+            {{ 'label_categories'|trans }}
+        </a>
+    </div>
 {% endblock %}

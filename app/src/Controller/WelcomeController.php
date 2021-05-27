@@ -31,24 +31,7 @@ class WelcomeController extends AbstractController
     {
         return $this->render(
             'personal_info/index.html.twig'
-        );
-    }
-
-    /**
-     * Show contacts action.
-     *
-     * @return \Symfony\Component\HttpFoundation\Response HTTP response
-     *
-     * @Route(
-     *     "/contacts",
-     *     methods={"GET"},
-     *     name="personal_info_contacts"
-     * )
-     */
-    public function showContacts(): Response
-    {
-        return $this->render(
-            'personal_info/contacts.html.twig'
+            // TODO Change (name/origin of?) loaded resource, so it's naming is consistent with website nav.
         );
     }
 }
