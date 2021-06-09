@@ -30,6 +30,122 @@
                 <source>message_upcoming_events</source>
                 <target>Nadchodzące wydarzenia</target>
             </trans-unit>
+            <trans-unit id="label_my_account">
+                <source>label_my_account</source>
+                <target>Moje konto</target>
+            </trans-unit>
+            <trans-unit id="label_logout">
+                <source>label_logout</source>
+                <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="title_contact_list">
+                <source>title_contact_list</source>
+                <target>Lista kontaktów</target>
+            </trans-unit>
+            <trans-unit id="label_contact_id">
+                <source>label_contact_id</source>
+                <target>ID Kontaktu</target>
+            </trans-unit>
+            <trans-unit id="label_first_name">
+                <source>label_first_name</source>
+                <target>Imię</target>
+            </trans-unit>
+            <trans-unit id="label_surname">
+                <source>label_surname</source>
+                <target>Nazwisko</target>
+            </trans-unit>
+            <trans-unit id="label_phone_number">
+                <source>label_phone_number</source>
+                <target>Numer telefonu</target>
+            </trans-unit>
+            <trans-unit id="label_email">
+                <source>label_email</source>
+                <target>Adres email</target>
+            </trans-unit>
+            <trans-unit id="label_actions">
+                <source>label_actions</source>
+                <target>Działania</target>
+            </trans-unit>
+            <trans-unit id="action_view">
+                <source>action_view</source>
+                <target>Wyświetl</target>
+            </trans-unit>
+            <trans-unit id="action_create">
+                <source>action_create</source>
+                <target>Dodaj</target>
+            </trans-unit>
+            <trans-unit id="action_edit">
+                <source>action_edit</source>
+                <target>Edytuj</target>
+            </trans-unit>
+            <trans-unit id="action_delete">
+                <source>action_delete</source>
+                <target>Usuń</target>
+            </trans-unit>
+            <trans-unit id="action_back_to_list">
+                <source>action_back_to_list</source>
+                <target>Powrót</target>
+            </trans-unit>
+            <trans-unit id="title_category_list">
+                <source>title_category_list</source>
+                <target>Lista kategorii</target>
+            </trans-unit>
+            <trans-unit id="label_category_id">
+                <source>label_category_id</source>
+                <target>ID kategorii</target>
+            </trans-unit>
+            <trans-unit id="label_name">
+                <source>label_name</source>
+                <target>Nazwa</target>
+            </trans-unit>
+            <trans-unit id="title_event_list">
+                <source>title_event_list</source>
+                <target>Lista wydarzeń</target>
+            </trans-unit>
+            <trans-unit id="label_event_id">
+                <source>label_event_id</source>
+                <target>ID wydarzenia</target>
+            </trans-unit>
+            <trans-unit id="label_date">
+                <source>label_date</source>
+                <target>Data</target>
+            </trans-unit>
+            <trans-unit id="label_description">
+                <source>label_description</source>
+                <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="label_event_category">
+                <source>label_event_category</source>
+                <target>Kategorie wydarzenia</target>
+            </trans-unit>
+            <trans-unit id="title_contact_edit">
+                <source>title_contact_edit</source>
+                <target>Edycja kontaktu</target>
+            </trans-unit>
+            <trans-unit id="action_save">
+                <source>action_save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+            <trans-unit id="action_contact_create">
+                <source>action_contact_create</source>
+                <target>Dodaj nowy kontakt</target>
+            </trans-unit>
+            <trans-unit id="title_contact_delete">
+                <source>title_contact_delete</source>
+                <target>Usunąć?</target>
+            </trans-unit>
+            <trans-unit id="action_event_create">
+                <source>action_event_create</source>
+                <target>Dodaj nowe wydarzenie</target>
+            </trans-unit>
+            <trans-unit id="action_category_create">
+                <source>action_category_create</source>
+                <target>Dodaj nową kategorię</target>
+            </trans-unit>
+            <trans-unit id="title_calendar">
+                <source>title_calendar</source>
+                <target>Mój kalendarz</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

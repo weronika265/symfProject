@@ -5,58 +5,71 @@
 {% endblock %}
 
 {% block body %}
+    {% include 'menu.html.twig' %}
+    <div class="display">
+        <h1>{{ 'title_contact_list'|trans }}</h1>
+        {% if pagination is defined and pagination.items|length %}
 
-    {#{% include 'menu.html.twig' %}#}
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
 
-    <h1>{{ 'title_contact_list'|trans }}</h1>
-    {% if pagination is defined and pagination.items|length %}
-
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_id'|trans, 'contact.id') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_first_name'|trans, 'contact.firstName') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_phone_number'|trans, 'contact.phoneNumber') }}</th>
-                <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'contact.email') }}</th>
-                <th>{{ 'label_actions'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for contact in pagination.items %}
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ contact.id }}</td>
-                    <td>{{ contact.firstName }}</td>
-                    <td>{{ contact.surname }}</td>
-                    <td>{{ contact.phoneNumber }}</td>
-                    <td>{{ contact.email }}</td>
-                    <td>
-                        <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
-                            {{ 'action_view'|trans }}
-                        </a>
-                        <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_edit'|trans }}">
-                            {{ 'action_edit'|trans }}
-                        </a>
-                        <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
-                            {{ 'action_delete'|trans }}
-                        </a>
-                    </td>
+                    {#<th>{{ knp_pagination_sortable(pagination, 'label_contact_id'|trans, 'contact.id') }}</th>#}
+                    <th></th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_first_name'|trans, 'contact.firstName') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_phone_number'|trans, 'contact.phoneNumber') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'contact.email') }}</th>
+                    <th>{{ 'label_actions'|trans }}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for contact in pagination.items %}
+                    <tr id="center">
+                        <td style="width: 35px; padding-top: 15px"><i class="bi bi-person-circle" style="font-size: 30px;"></i></td>
+                        <td>{{ contact.firstName }}</td>
+                        <td>{{ contact.surname }}</td>
+                        <td>{{ contact.phoneNumber }}</td>
+                        <td>{{ contact.email }}</td>
+                        <td>
+                            <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
+                                <i class="bi bi-arrows-angle-expand"></i>
+                                {#{{ 'action_view'|trans }}#}
+                            </a>
+                            <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_edit'|trans }}">
+                                <i class="bi bi-three-dots-vertical" style="color: black;"></i>
+                                {#{{ 'action_edit'|trans }}#}
+                            </a>
+                            <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
+                                <i class="bi bi-person-x" style="color: red;"></i>
+                                {#{{ 'action_delete'|trans }}#}
+                            </a>
+{#                            {% if not contact.|length %}
+                                <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
+                                    {{ 'action_delete'|trans }}
+                                </a>
+                            {% endif %}#}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-        <div class="navigation text-center">
-            {{ knp_pagination_render(pagination) }}
-        </div>
+            <a class="btn btn-outline-primary" href="{{ url('contact_create') }}" title="{{ 'action_contact_create'|trans }}">
+                <i class="bi bi-person-plus"></i>
+                {{ 'action_contact_create'|trans }}
+            </a>
 
-    {% else %}
-        <p>
-            {{ 'message_empty_list'|trans }}
-        </p>
-    {% endif %}
+        {% else %}
+            <p>
+                {% include 'default/_single_flash_message.html.twig' with {
+                    type: 'warning',
+                    message: 'message_empty_list'|trans
+                } %}
+            </p>
+        {% endif %}
+    </div>
 {% endblock %}

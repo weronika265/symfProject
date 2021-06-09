@@ -7,11 +7,12 @@ namespace App\Entity;
 
 use App\Repository\TagRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Tag.
  *
- * @ORM\Entity(repositoryClass=TagRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  * @ORM\Table(name="tags")
  */
 class Tag
@@ -32,7 +33,17 @@ class Tag
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(
+     *     type="string",
+     *     length=32
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="3",
+     *     max="32",
+     * )
      */
     private $name;
 

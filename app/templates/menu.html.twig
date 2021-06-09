@@ -2,27 +2,31 @@
 
 {% block body %}
     <div id="dropdown">
-        <div id="accountBar">
+        <div id="accountBar"><i class="bi bi-person-fill"></i>
             {{ 'label_account'|trans }}
         </div>
         <div id="dropdownContent">
-            <a href="#">My account</a>
-            <a href="#">Logout</a>
+            <a href="#">
+                {{ 'label_my_account'|trans }}
+            </a>
+            <a href="#">
+                {{ 'label_logout'|trans }}
+            </a>
         </div>
     </div>
 
     <div class="sidenav" style="padding-top: 25px;">
-        <a href="{{ url('contact_index') }}">
+        <a href="{{ url('contact_index') }}"><i class="bi bi-people-fill"></i>
             {{ 'label_contacts'|trans }}
         </a>
-        <a href="#">
+        <a href="{{ url('event_index_all') }}">
+            <i class="bi bi-calendar-date"></i>
             {{ 'label_calendar'|trans }}
         </a>
-        <a href="{{ url('personal_info_index') }}">
-            {# TODO Similiar to WelcomeController:index() . #}
+        <a href="{{ url('event_index') }}"><i class="bi bi-calendar-event"></i>
             {{ 'label_recent_upcoming_events'|trans }}
         </a>
-        <a href="{{ url('category_index') }}">
+        <a href="{{ url('category_index') }}"><i class="bi bi-bar-chart-steps"></i>
             {{ 'label_categories'|trans }}
         </a>
     </div>

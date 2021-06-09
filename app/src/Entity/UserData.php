@@ -7,11 +7,12 @@ namespace App\Entity;
 
 use App\Repository\UserDataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class USerData.
  *
- * @ORM\Entity(repositoryClass=UserDataRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserDataRepository")
  * @ORM\Table(name="user_data")
  */
 class UserData
@@ -32,7 +33,17 @@ class UserData
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(
+     *     type="string",
+     *     length=255,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="10",
+     *     max="255",
+     * )
      */
     private $data;
 
@@ -41,7 +52,17 @@ class UserData
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(
+     *     type="string",
+     *     length=45,
+     *     nullable=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="2",
+     *     max="45",
+     * )
      */
     private $firstName;
 
@@ -50,7 +71,17 @@ class UserData
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(
+     *     type="string",
+     *     length=45,
+     *     nullable=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="2",
+     *     max="45",
+     * )
      */
     private $surname;
 

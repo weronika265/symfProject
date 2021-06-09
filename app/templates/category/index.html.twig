@@ -5,27 +5,54 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_category_list'|trans }}</h1>
-    {% if categories is defined and categories|length %}
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th>{{ 'label_id'|trans }}</th>
-                <th>{{ 'label_name'|trans }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for category in categories %}
+    {% include 'menu.html.twig' %}
+
+    <div class="display">
+        <h1>{{ 'title_category_list'|trans }}</h1>
+        {% if pagination is defined and pagination.items|length %}
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+            <table class="table table-striped">
+                <thead>
                 <tr>
-                    <td>{{ category.id }}</td>
-                    <td>{{ category.name }}</td>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_category_id'|trans, 'category.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'category.id') }}</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>
-            {{ 'message_empty_list'|trans }}
-        </p>
-    {% endif %}
+                </thead>
+                <tbody>
+                {% for category in pagination.items %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                        <td>
+                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
+                                {{ 'action_edit'|trans }}
+                            </a>
+                            {% if not category.events|length %}
+                                <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
+                                    {{ 'action_delete'|trans }}
+                                </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-outline-primary" href="{{ url('category_create') }}" title="{{ 'action_category_create'|trans }}">
+                {{ 'action_category_create'|trans }}
+            </a>
+
+        {% else %}
+            <p>
+                {% include 'default/_single_flash_message.html.twig' with {
+                    type: 'warning',
+                    message: 'message_empty_list'|trans
+                } %}
+            </p>
+        {% endif %}
+    </div>
 {% endblock %}

@@ -21,10 +21,10 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(50, 'events', function ($i) {
+        $this->createMany(40, 'events', function ($i) {
             $event = new Event();
             $event->setName($this->faker->word);
-            $event->setDate($this->faker->dateTimeBetween('-100 days', '-1 days'));
+            $event->setDate($this->faker->dateTimeThisYear($max = 'now', $timezone = null) );
             $event->setDescription($this->faker->sentence);
             $event->setCategory($this->getRandomReference('categories'));
 

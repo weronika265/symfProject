@@ -27,7 +27,7 @@ p {
 }
 
 .display {
-    margin-left: 160px;
+    margin-left: 180px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: white;
@@ -67,4 +67,17 @@ p {
 
 #dropdown:hover #dropdownContent {
     display: block;
+}
+
+i {
+    font-size: 20px;
+    padding: 5px;
+}
+
+th {
+    /*background-color: darkslateblue;*/
+}
+
+#center td {
+    padding-top: 25px;
 }

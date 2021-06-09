@@ -1,22 +1,25 @@
 <?php
 /**
- * Contact type.
+ * Event type.
  */
 
-// TODO Modify Contact form everywhere.
+// TODO Modify Event form everywhere.
 
 namespace App\Form;
 
-use App\Entity\Contact;
+use App\Entity\Category;
+use App\Entity\Event;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ContactType.
+ * Class EventType.
  */
-class ContactType extends AbstractType
+class EventType extends AbstractType
 {
     /**
      * Builds the form.
@@ -32,39 +35,55 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'firstName',
+            'name',
             TextType::class,
             [
-                'label' => 'label_first_name',
+                'label' => 'label_name',
                 'required' => true,
                 'attr' => ['max_length' => 45],
             ]
         );
         $builder->add(
-            'surname',
-            TextType::class,
+            'date',
+            DateType::class,
             [
-                'label' => 'label_surname',
-                'required' => false,
-                'attr' => ['max_length' => 45],
+                'label' => 'label_date',
+                'required' => true,
             ]
         );
         $builder->add(
-            'phoneNumber',
+            'description',
             TextType::class,
             [
-                'label' => 'label_phone_number',
+                'label' => 'label_description',
                 'required' => false,
-                'attr' => ['max_length' => 15],
+                'attr' => ['max_length' => 255],
             ]
         );
         $builder->add(
-            'email',
-            TextType::class,
+            'category',
+            EntityType::class,
             [
-                'label' => 'label_email',
-                'required' => false,
-                'attr' => ['max_length' => 50],
+                'class' => Category::class,
+                'choice_label' => function ($category) {
+                    return $category->getName();
+                },
+                'label' => 'label_category',
+                'placeholder' => 'label_none',
+                'required' => true,
+            ]
+        );
+        $builder->add(
+            'category',
+            EntityType::class,
+            [
+                'class' => Category::class,
+                'choice_label' => function ($category) {
+                    return $category->getName();
+                },
+                'label' => 'label_category',
+                'placeholder' => 'label_none',
+                'required' => true,
             ]
         );
     }
@@ -76,7 +95,7 @@ class ContactType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Contact::class]);
+        $resolver->setDefaults(['data_class' => Event::class]);
     }
 
     /**
@@ -89,6 +108,6 @@ class ContactType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'contact';
+        return 'event';
     }
 }

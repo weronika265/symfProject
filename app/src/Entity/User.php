@@ -5,14 +5,15 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * Class User.
  *
- * @ORM\Entity(repositoryClass="App\Repository\UserRepository", repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
 class User
@@ -33,7 +34,17 @@ class User
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(
+     *     type="string",
+     *     length=32,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="8",
+     *     max="32",
+     * )
      */
     private $username;
 
@@ -42,7 +53,17 @@ class User
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(
+     *     type="string",
+     *     length=50,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="7",
+     *     max="50",
+     * )
      */
     private $email;
 
@@ -51,7 +72,17 @@ class User
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(
+     *     type="string",
+     *     length=255,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="10",
+     *     max="255",
+     * )
      */
     private $password;
 
@@ -61,8 +92,21 @@ class User
      * @var json
      *
      * @ORM\Column(type="json")
+     *
+     * @Assert\Type(type="json")
+     * @Assert\NotBlank
      */
     private $roles = [];
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
+        $this->userData = new ArrayCollection();
+        $this->contact = new ArrayCollection();
+    }
 
     /**
      * Getter for Id.

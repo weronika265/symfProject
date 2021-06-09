@@ -5,15 +5,15 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Category.
  *
- * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  * @ORM\Table(name="categories")
  */
 class Category
@@ -34,19 +34,34 @@ class Category
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(
+     *     type="string",
+     *     length=32,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="3",
+     *     max="32",
+     * )
      */
     private $name;
 
     /**
      * Events.
      *
-     * @var Event
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Event[] Events
      *
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="category")
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\Event",
+     *     mappedBy="category"
+     * )
      */
-    private $events;
+    private Collection $events;
 
+    /**
+     * Category constructor.
+     */
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -99,7 +114,7 @@ class Category
      */
     public function addEvent(Event $event): void
     {
-        if (!$this->events->contains($event)) {
+        if (!$this->events->contains($this)) {
             $this->events[] = $event;
             $event->setCategory($this);
         }
@@ -112,8 +127,8 @@ class Category
      */
     public function removeEvent(Event $event): void
     {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
             if ($event->getCategory() === $this) {
                 $event->setCategory(null);
             }

@@ -5,13 +5,13 @@
 
 namespace App\Entity;
 
-use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Contact.
  *
- * @ORM\Entity(repositoryClass=ContactRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
  * @ORM\Table(name="contacts")
  */
 class Contact
@@ -32,7 +32,16 @@ class Contact
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=45)
+     * @ORM\Column(
+     *     type="string",
+     *     length=45,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     max="45",
+     * )
      */
     private $firstName;
 
@@ -41,7 +50,16 @@ class Contact
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=45, nullable=true)
+     * @ORM\Column(
+     *     type="string",
+     *     length=45,
+     *     nullable=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     max="64",
+     * )
      */
     private $surname;
 
@@ -50,7 +68,17 @@ class Contact
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=15, nullable=true)
+     * @ORM\Column(
+     *     type="string",
+     *     length=15,
+     *     nullable=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="10",
+     *     max="64",
+     * )
      */
     private $phoneNumber;
 
@@ -59,7 +87,17 @@ class Contact
      *
      * @var string
      *
-     * @ORM\Column(type="string", length=50, nullable=true)
+     * @ORM\Column(
+     *     type="string",
+     *     length=50,
+     *     nullable=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="7",
+     *     max="50",
+     * )
      */
     private $email;
 

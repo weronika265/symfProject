@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_calendar'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% include 'menu.html.twig' %}
+
+    <div class="display">
+        <h1>{{ 'title_calendar'|trans }}</h1>
+        {% if pagination is defined and pagination.items|length %}
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_event_id'|trans, 'event.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'event.name') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_description'|trans, 'event.description') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'event.category.name') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for event in pagination.items %}
+                    <tr>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.name }}</td>
+                        <td>{{ event.date|date('d/m/Y') }}</td>
+                        <td>{{ event.description }}</td>
+                        <td>{{ event.category.name }}</td>
+                        <td>
+                            <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
+                                {{ 'action_view'|trans }}
+                            </a>
+                            {# TODO: connect with event forms and redirect to this site. #}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-outline-primary" href="{{ url('event_create') }}" title="{{ 'action_event_create'|trans }}">
+                {{ 'action_event_create'|trans }}
+            </a>
+
+        {% else %}
+            <p>
+                {% include 'default/_single_flash_message.html.twig' with {
+                    type: 'warning',
+                    message: 'message_empty_list'|trans
+                } %}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{# TODO Calendar subpage displaying all events. #}

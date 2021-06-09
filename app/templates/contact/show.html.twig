@@ -5,28 +5,32 @@
 {% endblock %}
 
 {% block body %}
-    <h1>{{ 'title_contact_details'|trans({'%id%': contact.id|default('')}) }}</h1>
-    {% if contact is defined and contact|length %}
-        <dl class="dl-horizontal">
-            <dt>{{ 'label_id'|trans }}</dt>
-            <dd>{{ contact.id }}</dd>
-            <dt>{{ 'label_first_name'|trans }}</dt>
-            <dd>{{ contact.firstName }}</dd>
-            <dt>{{ 'label_surname'|trans }}</dt>
-            <dd>{{ contact.surname }}</dd>
-            <dt>{{ 'label_phone_number'|trans }}</dt>
-            <dd>{{  contact.phoneNumber }}</dd>
-            <dt>{{ 'label_email'|trans }}</dt>
-            <dd>{{  contact.email }}</dd>
-        </dl>
-        <p>
-            <a href="{{ url('contact_index') }}" title="{{ 'action_back_to_list'|trans }}">
-                {{ 'action_back_to_list'|trans }}
-            </a>
-        </p>
-    {% else %}
-        <p>
-            {{ 'message_item_not_found'|trans }}
-        </p>
-    {% endif %}
+    {% include 'menu.html.twig' %}
+    <div class="display">
+        <h1>{{ 'title_contact_details'|trans({'%id%': contact.id|default('')}) }}</h1>
+        {% if contact is defined and contact|length %}
+            <dl class="dl-horizontal">
+                <dt>{{ 'label_contact_id'|trans }}</dt>
+                <dd>{{ contact.id }}</dd>
+                <dt>{{ 'label_first_name'|trans }}</dt>
+                <dd>{{ contact.firstName }}</dd>
+                <dt>{{ 'label_surname'|trans }}</dt>
+                <dd>{{ contact.surname }}</dd>
+                <dt>{{ 'label_phone_number'|trans }}</dt>
+                <dd>{{  contact.phoneNumber }}</dd>
+                <dt>{{ 'label_email'|trans }}</dt>
+                <dd>{{  contact.email }}</dd>
+            </dl>
+            <p>
+                <a href="{{ url('contact_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                    {{ 'action_back_to_list'|trans }}
+                </a>
+            </p>
+        {% else %}
+            <p>
+                {{ 'message_item_not_found'|trans }}
+                {#<i class="bi bi-arrow-left icon-3x"></i>#}
+            </p>
+        {% endif %}
+    </div>
 {% endblock %}

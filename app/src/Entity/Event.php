@@ -5,14 +5,14 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
-use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class Event.
  *
- * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table(name="events")
  */
 class Event
@@ -37,6 +37,13 @@ class Event
      *     type="string",
      *     length=45,
      * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="10",
+     *     max="64",
+     * )
      */
     private $name;
 
@@ -46,8 +53,11 @@ class Event
      * @var DateTimeInterface
      *
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\Type(type="datetime")
+     * @Assert\NotBlank
      */
-    private $date;
+    private $date;  /* TODO */
 
     /**
      * Description.
@@ -59,18 +69,26 @@ class Event
      *     length=255,
      *     nullable=true,
      * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\Length(
+     *     min="5",
+     *     max="255",
+     * )
      */
     private $description;
 
     /**
-     * Category.
-     *
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Category[] Category
      * @var Category
      *
-     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="events")
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Entity\Category",
+     *     inversedBy="events"
+     * )
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category;
+    private $category; /* TODO */
 
     /**
      * Getter for Id.

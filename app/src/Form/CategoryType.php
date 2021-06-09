@@ -1,22 +1,22 @@
 <?php
 /**
- * Contact type.
+ * Category type.
  */
 
-// TODO Modify Contact form everywhere.
+// TODO Modify Category form everywhere.
 
 namespace App\Form;
 
-use App\Entity\Contact;
+use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class ContactType.
+ * Class CategoryType.
  */
-class ContactType extends AbstractType
+class CategoryType extends AbstractType
 {
     /**
      * Builds the form.
@@ -32,39 +32,12 @@ class ContactType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'firstName',
+            'name',
             TextType::class,
             [
-                'label' => 'label_first_name',
+                'label' => 'label_name',
                 'required' => true,
-                'attr' => ['max_length' => 45],
-            ]
-        );
-        $builder->add(
-            'surname',
-            TextType::class,
-            [
-                'label' => 'label_surname',
-                'required' => false,
-                'attr' => ['max_length' => 45],
-            ]
-        );
-        $builder->add(
-            'phoneNumber',
-            TextType::class,
-            [
-                'label' => 'label_phone_number',
-                'required' => false,
-                'attr' => ['max_length' => 15],
-            ]
-        );
-        $builder->add(
-            'email',
-            TextType::class,
-            [
-                'label' => 'label_email',
-                'required' => false,
-                'attr' => ['max_length' => 50],
+                'attr' => ['max_length' => 32],
             ]
         );
     }
@@ -76,7 +49,7 @@ class ContactType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefaults(['data_class' => Contact::class]);
+        $resolver->setDefaults(['data_class' => Category::class]);
     }
 
     /**
@@ -89,6 +62,6 @@ class ContactType extends AbstractType
      */
     public function getBlockPrefix(): string
     {
-        return 'contact';
+        return 'category';
     }
 }

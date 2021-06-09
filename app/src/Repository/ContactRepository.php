@@ -34,7 +34,7 @@ class ContactRepository extends ServiceEntityRepository
     /**
      * ContactRepository constructor.
      *
-     * @param \Doctrine\Common\Persistence\ManagerRegistry $registry Manager registry
+     * @param \Doctrine\Persistence\ManagerRegistry $registry Manager registry
      */
     public function __construct(ManagerRegistry $registry)
     {
