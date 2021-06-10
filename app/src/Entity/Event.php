@@ -6,7 +6,10 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,6 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table(name="events")
+ *
  */
 class Event
 {
@@ -41,7 +45,6 @@ class Event
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
-     *     min="10",
      *     max="64",
      * )
      */
@@ -57,7 +60,7 @@ class Event
      * @Assert\Type(type="datetime")
      * @Assert\NotBlank
      */
-    private $date;  /* TODO */
+    private $date;
 
     /**
      * Description.
@@ -79,8 +82,9 @@ class Event
     private $description;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Category[] Category
-     * @var Category
+     * Category.
+     *
+     * @var \App\Entity\Category Category
      *
      * @ORM\ManyToOne(
      *     targetEntity="App\Entity\Category",
@@ -88,7 +92,28 @@ class Event
      * )
      * @ORM\JoinColumn(nullable=false)
      */
-    private $category; /* TODO */
+    private $category;
+
+    /**
+     * Tags.
+     *
+     * @var array
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Tag",
+     *     inversedBy="events",
+     * )
+     * @ORM\JoinTable(name="events_tags")
+     */
+    private $tags;
+
+    /**
+     * Event constructor.
+     */
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
 
     /**
      * Getter for Id.
@@ -178,5 +203,39 @@ class Event
     public function setCategory(?Category $category): void
     {
         $this->category = $category;
+    }
+
+    /**
+     * Getter for tags.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\Tag[] Tags collection
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag to collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+    }
+
+    /**
+     * Remove tag from collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function removeTag(Tag $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
     }
 }

@@ -5,19 +5,42 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Json;
 
 /**
- * Class User.
- *
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @ORM\Table(name="users")
+ * @ORM\Table(
+ *     name="users",
+ *     uniqueConstraints={
+ *          @ORM\UniqueConstraint(
+ *              name="username_idx",
+ *              columns={"username"},
+ *          )
+ *      }
+ * )
+ *
+ * @UniqueEntity(fields={"username"})
  */
-class User
+class User implements UserInterface
 {
+    /**
+     * Role user.
+     *
+     * @var string
+     */
+    const ROLE_USER = 'ROLE_USER';
+
+    /**
+     * Role admin.
+     *
+     * @var string
+     */
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * Primary key.
      *
@@ -25,31 +48,48 @@ class User
      *
      * @ORM\Id
      * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Column(
+     *     name="id",
+     *     type="integer",
+     *     nullable=false,
+     *     options={"unsigned"=true},
+     * )
      */
     private $id;
 
     /**
-     * Username.
-     *
-     * @var string
+     * User name.
      *
      * @ORM\Column(
      *     type="string",
-     *     length=32,
-     * )
-     *
-     * @Assert\Type(type="string")
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *     min="8",
-     *     max="32",
+     *     length=180,
+     *     unique=true,
      * )
      */
     private $username;
 
     /**
-     * Email.
+     * Roles.
+     *
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * The hashed password.
+     *
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank
+     * @Assert\Type(type="string")
+     * @SecurityAssert\UserPassword
+     */
+    private $password;
+
+    /**
+     * E-mail.
      *
      * @var string
      *
@@ -58,58 +98,13 @@ class User
      *     length=50,
      * )
      *
-     * @Assert\Type(type="string")
      * @Assert\NotBlank
-     * @Assert\Length(
-     *     min="7",
-     *     max="50",
-     * )
+     * @Assert\Email
      */
     private $email;
 
     /**
-     * Password.
-     *
-     * @var string
-     *
-     * @ORM\Column(
-     *     type="string",
-     *     length=255,
-     * )
-     *
-     * @Assert\Type(type="string")
-     * @Assert\NotBlank
-     * @Assert\Length(
-     *     min="10",
-     *     max="255",
-     * )
-     */
-    private $password;
-
-    /**
-     * Roles.
-     *
-     * @var json
-     *
-     * @ORM\Column(type="json")
-     *
-     * @Assert\Type(type="json")
-     * @Assert\NotBlank
-     */
-    private $roles = [];
-
-    /**
-     * User constructor.
-     */
-    public function __construct()
-    {
-        $this->events = new ArrayCollection();
-        $this->userData = new ArrayCollection();
-        $this->contact = new ArrayCollection();
-    }
-
-    /**
-     * Getter for Id.
+     * Getter for the id.
      *
      * @return int|null Result
      */
@@ -119,19 +114,22 @@ class User
     }
 
     /**
-     * Getter for Username.
+     * A visual identifier that represents this user.
      *
-     * @return string|null Username
+     * @see UserInterface
+     *
+     * @return string User name
      */
-    public function getUsername(): ?string
+    public function getUsername(): string
     {
-        return $this->username;
+        return (string) $this->username;
     }
 
     /**
-     * Setter for Username.
+     * Setter for U
+     * ser name.
      *
-     * @param string $username Username
+     * @param string $username User name
      */
     public function setUsername(string $username): void
     {
@@ -139,9 +137,9 @@ class User
     }
 
     /**
-     * Getter for Email.
+     * Getter for the E-mail.
      *
-     * @return string|null Email
+     * @return string|null E-mail
      */
     public function getEmail(): ?string
     {
@@ -149,9 +147,9 @@ class User
     }
 
     /**
-     * Setter for Email.
+     * Setter for the E-mail.
      *
-     * @param string $email Email
+     * @param string $email E-mail
      */
     public function setEmail(string $email): void
     {
@@ -159,17 +157,45 @@ class User
     }
 
     /**
-     * Getter for Password.
+     * Getter for the Roles.
      *
-     * @return string|null Password
+     * @see UserInterface
+     *
+     * @return array Roles
      */
-    public function getPassword(): ?string
+    public function getRoles(): array
     {
-        return $this->password;
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = static::ROLE_USER;
+
+        return array_unique($roles);
     }
 
     /**
-     * Setter for Password.
+     * Setter for the Roles.
+     *
+     * @param array $roles Roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * Getter for the Password.
+     *
+     * @see UserInterface
+     *
+     * @return string|null Password
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    /**
+     * Setter for the Password.
      *
      * @param string $password Password
      */
@@ -179,22 +205,22 @@ class User
     }
 
     /**
-     * Getter for Roles.
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * @return array|null Roles
+     * @see UserInterface
      */
-    public function getRoles(): ?array
+    public function getSalt()
     {
-        return $this->roles;
+        // not needed when using the "bcrypt" algorithm in security.yaml
     }
 
     /**
-     * Setter for Roles.
-     *
-     * @param array $roles Roles
+     * @see UserInterface
      */
-    public function setRoles(array $roles): void
+    public function eraseCredentials()
     {
-        $this->roles = $roles;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

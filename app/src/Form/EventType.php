@@ -9,6 +9,8 @@ namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Event;
+use App\Entity\Tag;
+use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -21,6 +23,23 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class EventType extends AbstractType
 {
+    /**
+     * Tags data transformer.
+     *
+     * @var \App\Form\DataTransformer\TagsDataTransformer
+     */
+    private $tagsDataTransformer;
+
+    /**
+     * TaskType constructor.
+     *
+     * @param \App\Form\DataTransformer\TagsDataTransformer $tagsDataTransformer Tags data transformer
+     */
+    public function __construct(TagsDataTransformer $tagsDataTransformer)
+    {
+        $this->tagsDataTransformer = $tagsDataTransformer;
+    }
+
     /**
      * Builds the form.
      *
@@ -74,17 +93,17 @@ class EventType extends AbstractType
             ]
         );
         $builder->add(
-            'category',
-            EntityType::class,
+            'tags',
+            TextType::class,
             [
-                'class' => Category::class,
-                'choice_label' => function ($category) {
-                    return $category->getName();
-                },
-                'label' => 'label_category',
-                'placeholder' => 'label_none',
-                'required' => true,
+                'label' => 'label_tags',
+                'required' => false,
+                'attr' => ['max_length' => 32],
             ]
+        );
+
+        $builder->get('tags')->addModelTransformer(
+            $this->tagsDataTransformer
         );
     }
 

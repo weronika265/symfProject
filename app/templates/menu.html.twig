@@ -3,13 +3,13 @@
 {% block body %}
     <div id="dropdown">
         <div id="accountBar"><i class="bi bi-person-fill"></i>
-            {{ 'label_account'|trans }}
+            {{ app.user.username }}
         </div>
         <div id="dropdownContent">
             <a href="#">
                 {{ 'label_my_account'|trans }}
             </a>
-            <a href="#">
+            <a href="{{ url('app_logout') }}">
                 {{ 'label_logout'|trans }}
             </a>
         </div>

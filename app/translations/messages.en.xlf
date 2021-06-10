@@ -146,6 +146,10 @@
                 <source>title_calendar</source>
                 <target>My calendar</target>
             </trans-unit>
+            <trans-unit id="label_tags">
+                <source>label_tags</source>
+                <target>Tags</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

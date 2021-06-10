@@ -20,6 +20,7 @@
                 <tr>
                     <th>{{ knp_pagination_sortable(pagination, 'label_category_id'|trans, 'category.id') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'category.id') }}</th>
+                    <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,11 +32,9 @@
                             <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
                                 {{ 'action_edit'|trans }}
                             </a>
-                            {% if not category.events|length %}
-                                <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
-                                    {{ 'action_delete'|trans }}
-                                </a>
-                            {% endif %}
+                            <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
+                                {{ 'action_delete'|trans }}
+                            </a>{# TODO: Make removable even if connected to event. #}
                         </td>
                     </tr>
                 {% endfor %}

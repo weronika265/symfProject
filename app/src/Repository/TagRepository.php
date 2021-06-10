@@ -1,4 +1,7 @@
 <?php
+/**
+ * Tag repository.
+ */
 
 namespace App\Repository;
 
@@ -14,9 +17,47 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TagRepository extends ServiceEntityRepository
 {
+    /**
+     * TagRepository constructor.
+     *
+     * @param ManagerRegistry $registry Manager registry
+     */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Tag::class);
+    }
+
+    /* TODO: implement findOneByName and save. */
+    /**
+     * Save record.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Tag $tag): void
+    {
+        $this->_em->persist($tag);
+        $this->_em->flush();
+    }
+
+    /**
+     * Find tag by its name.
+     *
+     * @param string $name Tag name
+     *
+     * @return array Result
+     */
+    public function findOneByName(string $name): array
+    {
+        $tag = [];
+
+        if (isset($this->tags[$name]) && count($this->tags[$name])) {
+            $tag = $this->tags[$name];
+        }
+
+        return $tag;
     }
 
     // /**

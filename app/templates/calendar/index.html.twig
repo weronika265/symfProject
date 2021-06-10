@@ -22,6 +22,8 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_description'|trans, 'event.description') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'event.category.name') }}</th>
+                    <th>{{ 'label_tags'|trans }}</th>
+                    <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,6 +34,15 @@
                         <td>{{ event.date|date('d/m/Y') }}</td>
                         <td>{{ event.description }}</td>
                         <td>{{ event.category.name }}</td>
+                        <td>
+                            {% if event.tags is defined and event.tags|length %}
+                                {% for tag in event.tags %}
+                                    {{ tag.name }}
+                                {% endfor %}
+                            {% else %}
+                                &nbsp;
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
                                 {{ 'action_view'|trans }}

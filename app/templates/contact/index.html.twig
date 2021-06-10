@@ -37,21 +37,13 @@
                         <td>
                             <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
                                 <i class="bi bi-arrows-angle-expand"></i>
-                                {#{{ 'action_view'|trans }}#}
                             </a>
                             <a href="{{ url('contact_edit', {id: contact.id}) }}" title="{{ 'action_edit'|trans }}">
                                 <i class="bi bi-three-dots-vertical" style="color: black;"></i>
-                                {#{{ 'action_edit'|trans }}#}
                             </a>
                             <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
                                 <i class="bi bi-person-x" style="color: red;"></i>
-                                {#{{ 'action_delete'|trans }}#}
                             </a>
-{#                            {% if not contact.|length %}
-                                <a href="{{ url('contact_delete', {id: contact.id}) }}" title="{{ 'action_delete'|trans }}">
-                                    {{ 'action_delete'|trans }}
-                                </a>
-                            {% endif %}#}
                         </td>
                     </tr>
                 {% endfor %}
