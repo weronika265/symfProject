@@ -64,11 +64,24 @@ class Tag
     private $events;
 
     /**
+     * Contacts.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection|\App\Entity\Contact[] Contacts
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Contact",
+     *     mappedBy="tags",
+     * )
+     */
+    private $contacts;
+
+    /**
      * Tag constructor.
      */
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
     }
 
     /**
@@ -134,6 +147,41 @@ class Tag
         if ($this->events->contains($event)) {
             $this->events->removeElement($event);
             $event->removeTag($this);
+        }
+    }
+
+    /**
+     * Getter for contacts.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\Contact[] Contacts collection
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Add contact to collection.
+     *
+     * @param \App\Entity\Contact $contact Contact entity
+     */
+    public function addContact(Contact $contact): void
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->addTag($this);
+        }
+    }
+
+    /**
+     * Remove contact from collection.
+     *
+     * @param \App\Entity\Contact $contact Contact entity
+     */
+    public function removeContact(Contact $contact): void
+    {
+        if ($this->contacts->removeElement($contact)) {
+            $contact->removeTag($this);
         }
     }
 }

@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_category_list'|trans }}
+    {{ 'title_tag_list'|trans }}
 {% endblock %}
 
 {% block body %}
     {% include 'menu.html.twig' %}
 
     <div class="display">
-        <h1>{{ 'title_category_list'|trans }}</h1>
+        <h1>{{ 'title_tag_list'|trans }}</h1>
         {% if pagination is defined and pagination.items|length %}
 
             <div class="navigation text-center">
@@ -18,32 +18,28 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_category_id'|trans, 'category.id') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'category.name') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_tag_id'|trans, 'tag.id') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'tag.name') }}</th>
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
-                {% for category in pagination.items %}
+                {% for tag in pagination.items %}
                     <tr>
-                        <td>{{ category.id }}</td>
-                        <td>{{ category.name }}</td>
+                        <td>{{ tag.id }}</td>
+                        <td>{{ tag.name }}</td>
                         <td>
-                            <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
+{#                            <a href="{{ url('tag_edit', {id: tag.id}) }}" title="{{ 'action_edit'|trans }}">
                                 {{ 'action_edit'|trans }}
-                            </a>
-                            <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
+                            </a>  #}{# DELETE? #}
+                            <a href="{{ url('tag_delete', {id: tag.id}) }}" title="{{ 'action_delete'|trans }}">
                                 {{ 'action_delete'|trans }}
-                            </a>{# TODO: Make removable category if connected to event. #}
+                            </a>{# TODO: Make removable tag if connected to event. #}
                         </td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
-
-            <a class="btn btn-outline-primary" href="{{ url('category_create') }}" title="{{ 'action_category_create'|trans }}">
-                {{ 'action_category_create'|trans }}
-            </a>
 
         {% else %}
             <p>

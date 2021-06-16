@@ -20,6 +20,16 @@
                 <dd>{{  contact.phoneNumber }}</dd>
                 <dt>{{ 'label_email'|trans }}</dt>
                 <dd>{{  contact.email }}</dd>
+                <dt>{{ 'label_tags'|trans }}</dt>
+                <dd>
+                    {% if contact.tags is defined and contact.tags|length %}
+                        {% for tag in contact.tags %}
+                            {{ tag.name }}
+                        {% endfor %}
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </dd>
             </dl>
             <p>
                 <a href="{{ url('contact_index') }}" title="{{ 'action_back_to_list'|trans }}">

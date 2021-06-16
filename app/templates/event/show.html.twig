@@ -20,6 +20,16 @@
                 <dd>{{  event.description }}</dd>
                 <dt>{{ 'label_event_category'|trans }}</dt>
                 <dd>{{  event.category.name }}</dd>
+                <dt>{{ 'label_tags'|trans }}</dt>
+                <dd>
+                    {% if event.tags is defined and event.tags|length %}
+                        {% for tag in event.tags %}
+                            {{ tag.name }}
+                        {% endfor %}
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </dd>
             </dl>
             <p>
                 <a href="{{ url('event_index') }}" title="{{ 'action_back_to_list'|trans }}">

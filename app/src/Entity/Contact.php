@@ -5,6 +5,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -102,6 +104,36 @@ class Contact
     private $email;
 
     /**
+     * Tags.
+     *
+     * @ORM\ManyToMany(
+     *     targetEntity="App\Entity\Tag",
+     *     inversedBy="contacts",
+     * )
+     *  @ORM\JoinTable(name="contacts_tags")
+     */
+    private $tags;
+
+    /**
+     * Author.
+     *
+     * @var \App\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+    /* TODO: change to user everywhere? */
+
+    /**
+     * Contact constructor.
+     */
+    public function __construct()
+    {
+        $this->tags = new ArrayCollection();
+    }
+
+    /**
      * Getter for Id.
      *
      * @return int|null Result
@@ -189,5 +221,59 @@ class Contact
     public function setEmail(?string $email): void
     {
         $this->email = $email;
+    }
+
+    /**
+     * Getter for Tags.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\Tag[] Tags collection
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add Tag to collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function addTag(Tag $tag): void
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+    }
+
+    /**
+     * Remove Tag from collection.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     */
+    public function removeTag(Tag $tag): void
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
+    }
+
+    /**
+     * Getter for Author.
+     *
+     * @return User|null Author
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Setter for Author.
+     *
+     * @param User|null $author Author
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
     }
 }

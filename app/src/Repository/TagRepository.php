@@ -7,6 +7,7 @@ namespace App\Repository;
 
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,17 @@ use Doctrine\Persistence\ManagerRegistry;
 class TagRepository extends ServiceEntityRepository
 {
     /**
+     * Items per page.
+     *
+     * Use constants to define configuration options that rarely change instead
+     * of specifying them in app/config/config.yml.
+     * See https://symfony.com/doc/current/best_practices.html#configuration
+     *
+     * @constant int
+     */
+    const PAGINATOR_ITEMS_PER_PAGE = 5;
+
+    /**
      * TagRepository constructor.
      *
      * @param ManagerRegistry $registry Manager registry
@@ -28,6 +40,7 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /* TODO: implement findOneByName and save. */
+
     /**
      * Save record.
      *
@@ -43,21 +56,58 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
+     * Delete record.
+     *
+     * @param \App\Entity\Tag $tag Tag entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Tag $tag): void
+    {
+        $this->_em->remove($tag);
+        $this->_em->flush();
+    }
+
+    /**
      * Find tag by its name.
      *
      * @param string $name Tag name
      *
      * @return array Result
      */
-    public function findOneByName(string $name): array
+    /*    public function findOneByName(string $name): array
+        {
+            $tag = [];
+
+            if (isset($this->tag[$name]) && count($this->tag[$name])) {
+                $tag = $this->tag[$name];
+            }
+
+            return $tag;
+        }*/
+    /* TODO: check why created. */
+
+    /**
+     * Query all records.
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAll(): QueryBuilder
     {
-        $tag = [];
+        return $this->getOrCreateQueryBuilder();
+    }
 
-        if (isset($this->tags[$name]) && count($this->tags[$name])) {
-            $tag = $this->tags[$name];
-        }
-
-        return $tag;
+    /**
+     * Get or create new query builder.
+     *
+     * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?? $this->createQueryBuilder('tag');
     }
 
     // /**

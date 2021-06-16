@@ -9,6 +9,7 @@ use App\Entity\Contact;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -40,7 +41,7 @@ class ContactController extends AbstractController
     public function index(Request $request, ContactRepository $contactRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $contactRepository->queryAll(),
+            $contactRepository->queryByAuthor($this->getUser()),
             $request->query->getInt('page', 1),
             ContactRepository::PAGINATOR_ITEMS_PER_PAGE
         );
@@ -63,6 +64,11 @@ class ContactController extends AbstractController
      *     methods={"GET"},
      *     name="contact_show",
      *     requirements={"id": "[1-9]\d*"},
+     * )
+     *
+     * @IsGranted(
+     *     "VIEW",
+     *     subject="contact",
      * )
      */
     public function show(Contact $contact): Response
@@ -97,6 +103,7 @@ class ContactController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $contact->setAuthor($this->getUser());
             $contactRepository->save($contact);
             $this->addFlash('success', 'message_created_successfully');
 
@@ -130,7 +137,7 @@ class ContactController extends AbstractController
      */
     public function edit(Request $request, Contact $contact, ContactRepository $contactRepository): Response
     {
-        $form = $this->createForm(ContactTYpe::class, $contact, ['method' => 'PUT']);
+        $form = $this->createForm(ContactType::class, $contact, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

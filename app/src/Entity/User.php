@@ -126,8 +126,7 @@ class User implements UserInterface
     }
 
     /**
-     * Setter for U
-     * ser name.
+     * Setter for User name.
      *
      * @param string $username User name
      */
