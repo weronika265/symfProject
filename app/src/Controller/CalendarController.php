@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,8 @@ class CalendarController extends AbstractController
     public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $eventRepository->queryAll(),
+            /*$eventRepository->queryAll(),*/
+            $eventRepository->queryByAuthor($this->getUser()),
             $request->query->getInt('page', 1),
             EventRepository::PAGINATOR_ITEMS_PER_CALENDAR_PAGE
         );
@@ -60,6 +62,11 @@ class CalendarController extends AbstractController
      *     methods={"GET"},
      *     name="event_show",
      *     requirements={"id": "[1-9]\d*"},
+     * )
+     *
+     * @IsGranted(
+     *     "VIEW",
+     *     subject="event",
      * )
      */
     public function show(Event $event): Response

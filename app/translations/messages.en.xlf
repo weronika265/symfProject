@@ -150,6 +150,30 @@
                 <source>label_tags</source>
                 <target>Tags</target>
             </trans-unit>
+            <trans-unit id="title_contact_details">
+                <source>title_contact_details</source>
+                <target>%fistName% %surname%</target>
+            </trans-unit>
+            <trans-unit id="title_event_details">
+                <source>title_event_details</source>
+                <target>%name%</target>
+            </trans-unit>
+            <trans-unit id="title_tag_list">
+                <source>title_tag_list</source>
+                <target>Tags</target>
+            </trans-unit>
+            <trans-unit id="label_users">
+                <source>label_users</source>
+                <target>Users</target>
+            </trans-unit>
+            <trans-unit id="title_user_list">
+                <source>title_user_list</source>
+                <target>List of users</target>
+            </trans-unit>
+            <trans-unit id="label_user_name">
+                <source>label_user_name</source>
+                <target>Username</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>

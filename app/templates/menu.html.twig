@@ -6,7 +6,7 @@
             {{ app.user.username }}
         </div>
         <div id="dropdownContent">
-            <a href="#">
+            <a href="{{ url('user_show', {id: app.user.id}) }}">
                 {{ 'label_my_account'|trans }}
             </a>
             <a href="{{ url('app_logout') }}">
@@ -26,11 +26,17 @@
         <a href="{{ url('event_index') }}"><i class="bi bi-calendar-event"></i>
             {{ 'label_recent_upcoming_events'|trans }}
         </a>
+        {# TODO: fix it by adding is_granted('IS_AUTHENTICATED_FULLY') #}
+        {#{% if (is_granted('ROLE_ADMIN')) %}#}
+        <a href="{{ url('user_index') }}"><i class="bi bi-person-lines-fill"></i>
+            {{ 'label_users'|trans }}
+        </a>
         <a href="{{ url('category_index') }}"><i class="bi bi-bar-chart-steps"></i>
             {{ 'label_categories'|trans }}
         </a>
         <a href="{{ url('tag_index') }}"><i class="bi bi-file-check"></i>
             {{ 'label_tags'|trans }}
         </a>
+        {#{% endif %}#}
     </div>
 {% endblock %}

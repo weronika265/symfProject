@@ -1,15 +1,14 @@
 <?php
 /**
- * Event controller.
+ * User Controller.
  */
 
 namespace App\Controller;
 
-use App\Entity\Event;
-use App\Form\EventType;
-use App\Repository\EventRepository;
+use App\Entity\User;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,73 +16,68 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Class EventController.
+ * Class UserController.
  *
- * @Route("/event")
+ * @Route("/user")
  */
-class EventController extends AbstractController
+class UserController extends AbstractController
 {
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator       Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Repository\UserRepository         $userRepository User repository
+     * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
      * @Route(
      *     "/",
      *     methods={"GET"},
-     *     name="event_index",
+     *     name="user_index",
      * )
      */
-    public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, userRepository $userRepository, PaginatorInterface $paginator): Response
     {
         $pagination = $paginator->paginate(
-            $eventRepository->queryByAuthor($this->getUser()),
+            $userRepository->queryAll($this->getUser()),
             $request->query->getInt('page', 1),
-            EventRepository::PAGINATOR_ITEMS_PER_PAGE
+            userRepository::PAGINATOR_ITEMS_PER_PAGE
         );
 
         return $this->render(
-            'event/index.html.twig',
+            'user/index.html.twig',
             ['pagination' => $pagination]
         );
     }
 
     /**
-     * Show event action.
+     * Show user action.
      *
-     * @param \App\Entity\Event $event Event entity
+     * @param \App\Entity\User $user User entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP Response
      *
      * @Route(
      *     "/{id}",
      *     methods={"GET"},
-     *     name="event_show",
+     *     name="user_show",
      *     requirements={"id": "[1-9]\d*"},
      * )
-     *
-     * @IsGranted(
-     *     "VIEW",
-     *     subject="event",
-     * )
      */
-    public function show(Event $event): Response
+    public function show(User $user): Response
     {
         return $this->render(
-            'event/show.html.twig',
-            ['event' => $event]
+            'user/show.html.twig',
+            ['user' => $user]
         );
     }
 
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Repository\UserRepository         $userRepository Userrepository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -93,25 +87,25 @@ class EventController extends AbstractController
      * @Route(
      *     "/create",
      *     methods={"GET", "POST"},
-     *     name="event_create",
+     *     name="user_create",
      * )
      */
-    public function create(Request $request, EventRepository $eventRepository): Response
+    public function create(Request $request, UserRepository $userRepository): Response
     {
-        $event = new Event();
-        $form = $this->createForm(EventType::class, $event);
+        $user = new User();
+        $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $event->setAuthor($this->getUser());
-            $eventRepository->save($event);
+            $user->setAuthor($this->getUser());
+            $userRepository->save($user);
             $this->addFlash('success', 'message_created_successfully');
 
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render(
-            'event/create.html.twig',
+            'user/create.html.twig',
             ['form' => $form->createView()]
         );
     }
@@ -119,9 +113,9 @@ class EventController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Entity\User                       $user           User entity
+     * @param \App\Repository\UserRepository         $userRepository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -132,26 +126,26 @@ class EventController extends AbstractController
      *     "/{id}/edit",
      *     methods={"GET", "PUT"},
      *     requirements={"id": "[1-9]\d*"},
-     *     name="event_edit",
+     *     name="user_edit",
      * )
      */
-    public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(EventType::class, $event, ['method' => 'PUT']);
+        $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $eventRepository->save($event);
+            $userRepository->save($user);
             $this->addFlash('success', 'message_updated_successfully');
 
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('user_index');    /* TODO: make different for user edit and admin edit. */
         }
 
         return $this->render(
-            'event/edit.html.twig',
+            'user/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'event' => $event,
+                'user' => $user,
             ]
         );
     }
@@ -159,9 +153,9 @@ class EventController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \App\Entity\User                       $user           User entity
+     * @param \App\Repository\UserRepository         $userRepository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -172,12 +166,12 @@ class EventController extends AbstractController
      *     "/{id}/delete",
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
-     *     name="event_delete",
+     *     name="user_delete",
      * )
      */
-    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        $form = $this->createForm(FormType::class, $event, ['method' => 'DELETE']);
+        $form = $this->createForm(FormType::class, $user, ['method' => 'DELETE']);
         $form->handleRequest($request);
 
         if ($request->isMethod('DELETE') && !$form->isSubmitted()) {
@@ -185,17 +179,17 @@ class EventController extends AbstractController
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $eventRepository->delete($event);
+            $userRepository->delete($user);
             $this->addFlash('success', 'message_deleted_successfully');
 
-            return $this->redirectToRoute('event_index');
+            return $this->redirectToRoute('user_index');
         }
 
         return $this->render(
-            'event/delete.html.twig',
+            'user/delete.html.twig',
             [
                 'form' => $form->createView(),
-                'event' => $event,
+                'user' => $user,
             ]
         );
     }

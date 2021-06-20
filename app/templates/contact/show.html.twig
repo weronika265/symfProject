@@ -1,21 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title_contact_details'|trans({'%id%': contact.id|default('')}) }}
+    {{ 'title_contact_details'|trans({'%firstName%': contact.firstName|default(''), '%surname%': contact.surname|default('') }) }}
 {% endblock %}
 
 {% block body %}
     {% include 'menu.html.twig' %}
     <div class="display">
-        <h1>{{ 'title_contact_details'|trans({'%id%': contact.id|default('')}) }}</h1>
+        <h1>{{ 'title_contact_details'|trans({'%firstName%': contact.firstName|default(''), '%surname%': contact.surname|default('') }) }}</h1>
         {% if contact is defined and contact|length %}
             <dl class="dl-horizontal">
-                <dt>{{ 'label_contact_id'|trans }}</dt>
-                <dd>{{ contact.id }}</dd>
-                <dt>{{ 'label_first_name'|trans }}</dt>
-                <dd>{{ contact.firstName }}</dd>
-                <dt>{{ 'label_surname'|trans }}</dt>
-                <dd>{{ contact.surname }}</dd>
                 <dt>{{ 'label_phone_number'|trans }}</dt>
                 <dd>{{  contact.phoneNumber }}</dd>
                 <dt>{{ 'label_email'|trans }}</dt>
@@ -34,6 +28,10 @@
             <p>
                 <a href="{{ url('contact_index') }}" title="{{ 'action_back_to_list'|trans }}">
                     {{ 'action_back_to_list'|trans }}
+                </a>
+                <a class="btn btn-outline-primary" href="{{ url('user_edit') }}" title="{{ 'action_user_edit'|trans }}">
+                    <i class="bi bi-person-plus"></i>
+                    {{ 'action_user_edit'|trans }}
                 </a>
             </p>
         {% else %}

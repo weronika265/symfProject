@@ -5,6 +5,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -102,6 +104,25 @@ class User implements UserInterface
      * @Assert\Email
      */
     private $email;
+
+    /**
+     * User data.
+     *
+     * @ORM\OneToMany(
+     *     targetEntity="App\Entity\UserData",
+     *     mappedBy="user",
+     *     orphanRemoval=true,
+     * )
+     */
+    private $userData;
+
+    /**
+     * User constructor.
+     */
+    public function __construct()
+    {
+        $this->userData = new ArrayCollection();
+    }
 
     /**
      * Getter for the id.
@@ -204,10 +225,12 @@ class User implements UserInterface
     }
 
     /**
+     * Getter for Salt.
+     *
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
-     * @see UserInterface
+     * @see \Symfony\Component\Security\Core\User\UserInterface User interface
      */
     public function getSalt()
     {
@@ -215,11 +238,51 @@ class User implements UserInterface
     }
 
     /**
-     * @see UserInterface
+     * Erase Credentials.
+     *
+     * @see \Symfony\Component\Security\Core\User\UserInterface User interface
      */
     public function eraseCredentials()
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Getter for User Data.
+     *
+     * @return \Doctrine\Common\Collections\Collection|\App\Entity\UserData[] User Data collection
+     */
+    public function getUserData(): Collection
+    {
+        return $this->userData;
+    }
+
+    /**
+     * Add User Data to collection.
+     *
+     * @param \App\Entity\UserData $userData User Data
+     */
+    public function addUserData(UserData $userData): void
+    {
+        if (!$this->userData->contains($userData)) {
+            $this->userData[] = $userData;
+            /*$userData->setUser($this);*/
+        }
+    }
+
+    /**
+     * Remove User Data from collection.
+     *
+     * @param \App\Entity\UserData $userData User Data
+     */
+    public function removeUserData(UserData $userData): void
+    {
+        if ($this->userData->removeElement($userData)) {
+            // set the owning side to null (unless already changed)
+            if ($userData->getUser() === $this) {
+                $userData->setUser(null);
+            }
+        }
     }
 }

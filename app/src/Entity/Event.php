@@ -108,6 +108,16 @@ class Event
     private $tags;
 
     /**
+     * Author.
+     *
+     * @var \App\Entity\User
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
      * Event constructor.
      */
     public function __construct()
@@ -188,7 +198,7 @@ class Event
     /**
      * Getter for Category.
      *
-     * @return Category|null Category
+     * @return \App\Entity\Category|null Category
      */
     public function getCategory(): ?Category
     {
@@ -198,7 +208,7 @@ class Event
     /**
      * Setter for Category.
      *
-     * @param Category|null $category Category
+     * @param \App\Entity\Category|null $category Category
      */
     public function setCategory(?Category $category): void
     {
@@ -237,5 +247,25 @@ class Event
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
         }
+    }
+
+    /**
+     * Getter for Author.
+     *
+     * @return \App\Entity\User|null Author
+     */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Setter for Author.
+     *
+     * @param \App\Entity\User|null $author Author
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
     }
 }

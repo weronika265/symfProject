@@ -260,7 +260,7 @@ class Contact
     /**
      * Getter for Author.
      *
-     * @return User|null Author
+     * @return \App\Entity\User|null Author
      */
     public function getAuthor(): ?User
     {
@@ -270,7 +270,7 @@ class Contact
     /**
      * Setter for Author.
      *
-     * @param User|null $author Author
+     * @param \App\Entity\User|null $author Author
      */
     public function setAuthor(?User $author): void
     {

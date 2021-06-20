@@ -20,19 +20,18 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_event_id'|trans, 'event.id') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'event.name') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_description'|trans, 'event.description') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'event.category.name') }}</th>
                     <th>{{ 'label_tags'|trans }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'event.author') }}</th>
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for event in pagination.items %}
                     <tr>
-                        <td>{{ event.id }}</td>
                         <td>{{ event.name }}</td>
                         <td>{{ event.date|date('d/m/Y') }}</td>
                         <td>{{ event.description }}</td>
@@ -46,6 +45,7 @@
                                 &nbsp;
                             {% endif %}
                         </td>
+                        <td>{{ event.author.username }}</td>
                         <td>
                             <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
                                 {{ 'action_view'|trans }}
@@ -81,19 +81,18 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>{{ knp_pagination_sortable(pagination, 'label_event_id'|trans, 'event.id') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'event.name') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_description'|trans, 'event.description') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'event.category.name') }}</th>
                 <th>{{ 'label_tags'|trans }}</th>
+                <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'event.author') }}</th>
                 <th>{{ 'label_actions'|trans }}</th>
             </tr>
             </thead>
             <tbody>
             {% for event in pagination.items %}
                 <tr>
-                    <td>{{ event.id }}</td>
                     <td>{{ event.name }}</td>
                     <td>{{ event.date|date('Y/m/d') }}</td>
                     <td>{{ event.description }}</td>
@@ -107,16 +106,23 @@
                             &nbsp;
                         {% endif %}
                     </td>
+                    <td>{{ event.author.username }}</td>
                     <td>
+                        {% if is_granted('VIEW', event) %}
                         <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
                             {{ 'action_view'|trans }}
                         </a>
+                        {% endif %}
+                        {% if is_granted('EDIT', event) %}
                         <a href="{{ url('event_edit', {id: event.id}) }}" title="{{ 'action_edit'|trans }}">
                             {{ 'action_edit'|trans }}
                         </a>
+                        {% endif %}
+                        {% if is_granted('DELETE', event) %}
                         <a href="{{ url('event_delete', {id: event.id}) }}" title="{{ 'action_delete'|trans }}">
                             {{ 'action_delete'|trans }}
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

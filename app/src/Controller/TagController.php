@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class TagController.
+ *
+ * @Route("/tag")
  */
 class TagController extends AbstractController
 {

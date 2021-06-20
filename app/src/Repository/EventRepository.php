@@ -6,6 +6,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
@@ -39,6 +40,23 @@ class EventRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Event::class);
+    }
+
+    /**
+     * Query tasks by author.
+     *
+     * @param \App\Entity\User $user User entity
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryByAuthor(User $user): QueryBuilder
+    {
+        $queryBuilder = $this->queryAll();
+
+        $queryBuilder->andWhere('event.author = :author')
+            ->setParameter('author', $user);
+
+        return $queryBuilder;
     }
 
     /**
@@ -82,10 +100,11 @@ class EventRepository extends ServiceEntityRepository
                 'partial category.{id, name}',
                 'partial tags.{id, name}'
             )
-/*            ->where('event.date = 2021-05-12 02:37:57')*/
             ->join('event.category', 'category')
             ->leftJoin('event.tags', 'tags')
-            ->orderBy('event.date', 'DESC');
+            ->orderBy('event.date', 'DESC')
+            ->andWhere('event.date >= :a')
+            ->setParameter('a', '2021-03-03');
     }
 
     /**

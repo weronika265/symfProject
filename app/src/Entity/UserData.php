@@ -86,6 +86,17 @@ class UserData
     private $surname;
 
     /**
+     * User.
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="\App\Entity\User",
+     *     inversedBy="userData",
+     * )
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
      * Getter for Id.
      *
      * @return int|null Result
@@ -153,5 +164,25 @@ class UserData
     public function setSurname(?string $surname): void
     {
         $this->surname = $surname;
+    }
+
+    /**
+     * Getter for User.
+     *
+     * @return \App\Entity\User|null User
+     */
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    /**
+     * Setter for User.
+     *
+     * @param \App\Entity\User|null $user User
+     */
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }

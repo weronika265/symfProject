@@ -26,8 +26,11 @@ security:
                     - App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
+            form_login:
+                default_target_path: event_index
                 # where to redirect after logout
                 # target: app_any_route
+
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

@@ -18,7 +18,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_tag_id'|trans, 'tag.id') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'tag.name') }}</th>
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
@@ -26,7 +25,6 @@
                 <tbody>
                 {% for tag in pagination.items %}
                     <tr>
-                        <td>{{ tag.id }}</td>
                         <td>{{ tag.name }}</td>
                         <td>
 {#                            <a href="{{ url('tag_edit', {id: tag.id}) }}" title="{{ 'action_edit'|trans }}">
