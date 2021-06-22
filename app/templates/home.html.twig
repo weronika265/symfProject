@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_home'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% include 'menu.html.twig' %}
+
+    <div class="display">
+        <p>
+            {{ 'message_welcome'|trans({'%username%': app.user.username|default('') }) }}
+        </p>
+    </div>
+{% endblock %}

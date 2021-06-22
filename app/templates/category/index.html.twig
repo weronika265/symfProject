@@ -30,9 +30,11 @@
                             <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
                                 {{ 'action_edit'|trans }}
                             </a>
+                            {% if not category.events|length %}
                             <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
                                 {{ 'action_delete'|trans }}
-                            </a>{# TODO: Make removable category if connected to event. #}
+                            </a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

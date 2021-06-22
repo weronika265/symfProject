@@ -26,7 +26,7 @@ class UserController extends AbstractController
      * Index action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\UserRepository         $userRepository User repository
+     * @param \App\Repository\UserRepository            $userRepository User repository
      * @param \Knp\Component\Pager\PaginatorInterface   $paginator      Paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
@@ -76,8 +76,8 @@ class UserController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Repository\UserRepository         $userRepository Userrepository
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Repository\UserRepository            $userRepository Userrepository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -113,9 +113,9 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\User                       $user           User entity
-     * @param \App\Repository\UserRepository         $userRepository User repository
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Entity\User                          $user           User entity
+     * @param \App\Repository\UserRepository            $userRepository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -153,9 +153,9 @@ class UserController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
-     * @param \App\Entity\User                       $user           User entity
-     * @param \App\Repository\UserRepository         $userRepository User repository
+     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
+     * @param \App\Entity\User                          $user           User entity
+     * @param \App\Repository\UserRepository            $userRepository User repository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *

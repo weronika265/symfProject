@@ -40,15 +40,31 @@ class EventController extends AbstractController
      */
     public function index(Request $request, EventRepository $eventRepository, PaginatorInterface $paginator): Response
     {
-        $pagination = $paginator->paginate(
-            $eventRepository->queryByAuthor($this->getUser()),
+        $filtersCurrent = [
+            'date_from' => '2021-06-10',
+            'date_to' => '2021-06-27',
+        ];
+        $paginationCurrent = $paginator->paginate(
+            $eventRepository->queryByAuthor($this->getUser(), $filtersCurrent),
+            $request->query->getInt('page', 1),
+            EventRepository::PAGINATOR_ITEMS_PER_PAGE
+        );
+
+        $filtersUpcoming = [
+            'date_from' => '2021-06-28',
+        ];
+        $paginationUpcoming = $paginator->paginate(
+            $eventRepository->queryByAuthor($this->getUser(), $filtersUpcoming),
             $request->query->getInt('page', 1),
             EventRepository::PAGINATOR_ITEMS_PER_PAGE
         );
 
         return $this->render(
             'event/index.html.twig',
-            ['pagination' => $pagination]
+            [
+                'paginationCurrent' => $paginationCurrent,
+                'paginationUpcoming' => $paginationUpcoming,
+            ]
         );
     }
 

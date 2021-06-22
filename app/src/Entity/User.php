@@ -5,12 +5,9 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -86,9 +83,8 @@ class User implements UserInterface
      *
      * @Assert\NotBlank
      * @Assert\Type(type="string")
-     * @SecurityAssert\UserPassword
      */
-    private $password;
+    private $password = '';
 
     /**
      * E-mail.
@@ -108,21 +104,13 @@ class User implements UserInterface
     /**
      * User data.
      *
-     * @ORM\OneToMany(
+     * @ORM\OneToOne(
      *     targetEntity="App\Entity\UserData",
      *     mappedBy="user",
      *     orphanRemoval=true,
      * )
      */
     private $userData;
-
-    /**
-     * User constructor.
-     */
-    public function __construct()
-    {
-        $this->userData = new ArrayCollection();
-    }
 
     /**
      * Getter for the id.
@@ -217,11 +205,11 @@ class User implements UserInterface
     /**
      * Setter for the Password.
      *
-     * @param string $password Password
+     * @param string|null $password Password
      */
-    public function setPassword(string $password): void
+    public function setPassword(?string $password): void
     {
-        $this->password = $password;
+        $this->password = (string) $password;
     }
 
     /**
@@ -251,38 +239,21 @@ class User implements UserInterface
     /**
      * Getter for User Data.
      *
-     * @return \Doctrine\Common\Collections\Collection|\App\Entity\UserData[] User Data collection
+     * @return \App\Entity\UserData User Data
      */
-    public function getUserData(): Collection
+    public function getUserData(): UserData
     {
         return $this->userData;
     }
 
     /**
-     * Add User Data to collection.
+     * Setter for User Data.
      *
      * @param \App\Entity\UserData $userData User Data
      */
-    public function addUserData(UserData $userData): void
+    public function setUserData(UserData $userData): void
     {
-        if (!$this->userData->contains($userData)) {
-            $this->userData[] = $userData;
-            /*$userData->setUser($this);*/
-        }
-    }
-
-    /**
-     * Remove User Data from collection.
-     *
-     * @param \App\Entity\UserData $userData User Data
-     */
-    public function removeUserData(UserData $userData): void
-    {
-        if ($this->userData->removeElement($userData)) {
-            // set the owning side to null (unless already changed)
-            if ($userData->getUser() === $this) {
-                $userData->setUser(null);
-            }
-        }
+        $userData->setUser($this);
+        $this->userData = $userData;
     }
 }

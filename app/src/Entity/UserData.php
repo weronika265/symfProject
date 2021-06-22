@@ -88,7 +88,7 @@ class UserData
     /**
      * User.
      *
-     * @ORM\ManyToOne(
+     * @ORM\OneToOne(
      *     targetEntity="\App\Entity\User",
      *     inversedBy="userData",
      * )

@@ -8,8 +8,8 @@ namespace App\Repository;
 use App\Entity\Event;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Event|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +19,6 @@ use Doctrine\ORM\QueryBuilder;
  */
 class EventRepository extends ServiceEntityRepository
 {
-
     /**
      * Items per page.
      *
@@ -45,13 +44,14 @@ class EventRepository extends ServiceEntityRepository
     /**
      * Query tasks by author.
      *
-     * @param \App\Entity\User $user User entity
+     * @param \App\Entity\User $user    User entity
+     * @param array            $filters Array of filters
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryByAuthor(User $user): QueryBuilder
+    public function queryByAuthor(User $user, array $filters = []): QueryBuilder
     {
-        $queryBuilder = $this->queryAll();
+        $queryBuilder = $this->queryAll($filters);
 
         $queryBuilder->andWhere('event.author = :author')
             ->setParameter('author', $user);
@@ -90,11 +90,13 @@ class EventRepository extends ServiceEntityRepository
     /**
      * Query all records.
      *
+     * @param array $filters Array of filters
+     *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
                 'partial event.{id, name, date, description}',
                 'partial category.{id, name}',
@@ -102,9 +104,21 @@ class EventRepository extends ServiceEntityRepository
             )
             ->join('event.category', 'category')
             ->leftJoin('event.tags', 'tags')
-            ->orderBy('event.date', 'DESC')
-            ->andWhere('event.date >= :a')
-            ->setParameter('a', '2021-03-03');
+            ->orderBy('event.date', 'DESC');
+
+        if (array_key_exists('date_from', $filters) && strlen($filters['date_from'])) {
+            $queryBuilder
+                ->andWhere('event.date >= :date_from')
+                    ->setParameter('date_from', $filters['date_from']);
+        }
+
+        if (array_key_exists('date_to', $filters) && strlen($filters['date_to'])) {
+            $queryBuilder
+                ->andWhere('event.date <= :date_to')
+                    ->setParameter('date_to', $filters['date_to']);
+        }
+
+        return $queryBuilder;
     }
 
     /**
