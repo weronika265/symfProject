@@ -16,6 +16,7 @@
     </div>
 
     <div class="sidenav" style="padding-top: 25px;">
+        {% if (is_granted('ROLE_USER')) %}
         <a href="{{ url('contact_index') }}"><i class="bi bi-people-fill"></i>
             {{ 'label_contacts'|trans }}
         </a>
@@ -26,8 +27,9 @@
         <a href="{{ url('event_index') }}"><i class="bi bi-calendar-event"></i>
             {{ 'label_recent_upcoming_events'|trans }}
         </a>
+        {% endif %}
         {# TODO: fix it by adding is_granted('IS_AUTHENTICATED_FULLY') #}
-        {#{% if (is_granted('ROLE_ADMIN')) %}#}
+        {% if (is_granted('ROLE_ADMIN')) %}
         <a href="{{ url('user_index') }}"><i class="bi bi-person-lines-fill"></i>
             {{ 'label_users'|trans }}
         </a>
@@ -37,6 +39,6 @@
         <a href="{{ url('tag_index') }}"><i class="bi bi-file-check"></i>
             {{ 'label_tags'|trans }}
         </a>
-        {#{% endif %}#}
+        {% endif %}
     </div>
 {% endblock %}

@@ -88,7 +88,8 @@ class Event
      *
      * @ORM\ManyToOne(
      *     targetEntity="App\Entity\Category",
-     *     inversedBy="events"
+     *     inversedBy="events",
+     *     fetch="EXTRA_LAZY",
      * )
      * @ORM\JoinColumn(nullable=false)
      */
@@ -102,6 +103,7 @@ class Event
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\Tag",
      *     inversedBy="events",
+     *     fetch="EXTRA_LAZY",
      * )
      * @ORM\JoinTable(name="events_tags")
      */

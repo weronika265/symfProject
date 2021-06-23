@@ -104,10 +104,12 @@ class User implements UserInterface
     /**
      * User data.
      *
+     * @var UserData
+     *
      * @ORM\OneToOne(
      *     targetEntity="App\Entity\UserData",
      *     mappedBy="user",
-     *     orphanRemoval=true,
+     *     fetch="EXTRA_LAZY",
      * )
      */
     private $userData;

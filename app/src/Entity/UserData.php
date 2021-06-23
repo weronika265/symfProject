@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class USerData.
+ * Class UserData.
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserDataRepository")
  * @ORM\Table(name="user_data")
@@ -88,11 +88,14 @@ class UserData
     /**
      * User.
      *
+     * @var User
+     *
      * @ORM\OneToOne(
      *     targetEntity="\App\Entity\User",
      *     inversedBy="userData",
+     *     fetch="EXTRA_LAZY",
      * )
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 

@@ -50,6 +50,11 @@ class ContactRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial contact.{id, firstName, surname, phoneNumber, email}',
+                'partial tags.{id, name}'
+            )
+            ->leftJoin('contact.tags', 'tags')
             ->orderBy('contact.surname');
     }
 

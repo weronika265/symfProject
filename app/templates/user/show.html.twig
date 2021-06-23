@@ -14,12 +14,12 @@
                 <dd>{{  user.username }}</dd>
                 <dt>{{ 'label_user_email'|trans }}</dt>
                 <dd>{{  user.email }}</dd>
-                <dt>{{ 'label_user_data_first_name'|trans }}</dt>
+{#                <dt>{{ 'label_user_data_first_name'|trans }}</dt>
                 <dd>{{  user.userData.firstName }}</dd>
                 <dt>{{ 'label_user_data_surname'|trans }}</dt>
                 <dd>{{  user.userData.surname }}</dd>
                 <dt>{{ 'label_user_data_data'|trans }}</dt>
-                <dd>{{  user.userData.data }}</dd>
+                <dd>{{  user.userData.data }}</dd>#}
             </dl>
             <a href="{{ url('user_edit', {id: user.id}) }}" title="{{ 'action_edit'|trans }}">
                 {{ 'action_edit'|trans }}

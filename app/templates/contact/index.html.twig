@@ -24,7 +24,6 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label_phone_number'|trans, 'contact.phoneNumber') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_email'|trans, 'contact.email') }}</th>
                     <th>{{ 'label_tags'|trans }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'contact.author') }}</th>
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
@@ -45,7 +44,6 @@
                                 &nbsp;
                             {% endif %}
                         </td>
-                        <td>{{ contact.author.username }}</td>
                         <td>
                             {% if is_granted('VIEW', contact) %}
                             <a href="{{ url('contact_show', {id: contact.id}) }}" title="{{ 'action_view'|trans }}">
@@ -68,10 +66,10 @@
                 </tbody>
             </table>
 
-            <a class="btn btn-outline-primary" href="{{ url('contact_create') }}" title="{{ 'action_contact_create'|trans }}">
+            {#<a class="btn btn-outline-primary" href="{{ url('contact_create') }}" title="{{ 'action_contact_create'|trans }}">
                 <i class="bi bi-person-plus"></i>
                 {{ 'action_contact_create'|trans }}
-            </a>
+            </a>#}
 
         {% else %}
             <p>
@@ -81,5 +79,11 @@
                 } %}
             </p>
         {% endif %}
+
+        <a class="btn btn-outline-primary" href="{{ url('contact_create') }}" title="{{ 'action_contact_create'|trans }}">
+            <i class="bi bi-person-plus"></i>
+            {{ 'action_contact_create'|trans }}
+        </a>
+
     </div>
 {% endblock %}

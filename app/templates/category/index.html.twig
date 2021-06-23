@@ -41,10 +41,6 @@
                 </tbody>
             </table>
 
-            <a class="btn btn-outline-primary" href="{{ url('category_create') }}" title="{{ 'action_category_create'|trans }}">
-                {{ 'action_category_create'|trans }}
-            </a>
-
         {% else %}
             <p>
                 {% include 'default/_single_flash_message.html.twig' with {
@@ -53,5 +49,10 @@
                 } %}
             </p>
         {% endif %}
+
+        <a class="btn btn-outline-primary" href="{{ url('category_create') }}" title="{{ 'action_category_create'|trans }}">
+            {{ 'action_category_create'|trans }}
+        </a>
+
     </div>
 {% endblock %}

@@ -57,7 +57,8 @@ class Category
      *
      * @ORM\OneToMany(
      *     targetEntity="App\Entity\Event",
-     *     mappedBy="category"
+     *     mappedBy="category",
+     *     fetch="EXTRA_LAZY",
      * )
      */
     private Collection $events;

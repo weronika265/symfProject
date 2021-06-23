@@ -54,7 +54,7 @@ class CategoryController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request            HTTP request
-     * @param \App\Repository\CategoryRepository        $categoryRepository Categoryrepository
+     * @param \App\Repository\CategoryRepository        $categoryRepository CategoryRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -121,7 +121,7 @@ class CategoryController extends AbstractController
             'category/edit.html.twig',
             [
                 'form' => $form->createView(),
-                'category' =>$category,
+                'category' => $category,
             ]
         );
     }

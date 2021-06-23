@@ -59,6 +59,7 @@ class Tag
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\Event",
      *     mappedBy="tags",
+     *     fetch="EXTRA_LAZY",
      * )
      */
     private $events;
@@ -71,6 +72,7 @@ class Tag
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\Contact",
      *     mappedBy="tags",
+     *     fetch="EXTRA_LAZY",
      * )
      */
     private $contacts;

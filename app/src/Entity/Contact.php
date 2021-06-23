@@ -109,6 +109,7 @@ class Contact
      * @ORM\ManyToMany(
      *     targetEntity="App\Entity\Tag",
      *     inversedBy="contacts",
+     *     fetch="EXTRA_LAZY",
      * )
      *  @ORM\JoinTable(name="contacts_tags")
      */
@@ -119,7 +120,10 @@ class Contact
      *
      * @var \App\Entity\User
      *
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Entity\User",
+     *     fetch="EXTRA_LAZY",
+     * )
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;

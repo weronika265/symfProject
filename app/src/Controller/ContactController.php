@@ -134,6 +134,11 @@ class ContactController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="contact_edit",
      * )
+     *
+     * @IsGranted(
+     *     "EDIT",
+     *     subject="contact",
+     * )
      */
     public function edit(Request $request, Contact $contact, ContactRepository $contactRepository): Response
     {
@@ -173,6 +178,11 @@ class ContactController extends AbstractController
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="contact_delete",
+     * )
+     *
+     * @IsGranted(
+     *     "DELETE",
+     *     subject="contact",
      * )
      */
     public function delete(Request $request, Contact $contact, ContactRepository $contactRepository): Response

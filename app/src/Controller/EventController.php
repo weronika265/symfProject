@@ -150,6 +150,11 @@ class EventController extends AbstractController
      *     requirements={"id": "[1-9]\d*"},
      *     name="event_edit",
      * )
+     *
+     * @IsGranted(
+     *     "EDIT",
+     *     subject="event",
+     * )
      */
     public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
     {
@@ -189,6 +194,11 @@ class EventController extends AbstractController
      *     methods={"GET", "DELETE"},
      *     requirements={"id": "[1-9]\d*"},
      *     name="event_delete",
+     * )
+     *
+     * @IsGranted(
+     *     "DELETE",
+     *     subject="event",
      * )
      */
     public function delete(Request $request, Event $event, EventRepository $eventRepository): Response

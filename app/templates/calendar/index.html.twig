@@ -20,9 +20,8 @@
                     <th>{{ knp_pagination_sortable(pagination, 'label_name'|trans, 'event.name') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_date'|trans, 'event.date') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_description'|trans, 'event.description') }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'event.category.name') }}</th>
+                    <th>{{ knp_pagination_sortable(pagination, 'label_event_category'|trans, 'category.name') }}</th>
                     <th>{{ 'label_tags'|trans }}</th>
-                    <th>{{ knp_pagination_sortable(pagination, 'label_author'|trans, 'event.author') }}</th>
                     <th>{{ 'label_actions'|trans }}</th>
                 </tr>
                 </thead>
@@ -42,7 +41,6 @@
                                 &nbsp;&nbsp;
                             {% endif %}
                         </td>
-                        <td>{{ event.author.username }}</td>
                         <td>
                             {% if is_granted('VIEW', event) %}
                             <a href="{{ url('event_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
@@ -56,10 +54,6 @@
                 </tbody>
             </table>
 
-            <a class="btn btn-outline-primary" href="{{ url('event_create') }}" title="{{ 'action_event_create'|trans }}">
-                {{ 'action_event_create'|trans }}
-            </a>
-
         {% else %}
             <p>
                 {% include 'default/_single_flash_message.html.twig' with {
@@ -68,6 +62,11 @@
                 } %}
             </p>
         {% endif %}
+
+        <a class="btn btn-outline-primary" href="{{ url('event_create') }}" title="{{ 'action_event_create'|trans }}">
+            {{ 'action_event_create'|trans }}
+        </a>
+
     </div>
 {% endblock %}
 

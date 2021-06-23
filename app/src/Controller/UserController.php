@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\UserService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -22,6 +23,19 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class UserController extends AbstractController
 {
+    /**
+     * @var UserService
+     */
+    private UserService $userService;
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Index action.
      *
@@ -77,7 +91,7 @@ class UserController extends AbstractController
      * Create action.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Repository\UserRepository            $userRepository Userrepository
+     * @param \App\Repository\UserRepository            $userRepository UserRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -113,9 +127,8 @@ class UserController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request        HTTP request
-     * @param \App\Entity\User                          $user           User entity
-     * @param \App\Repository\UserRepository            $userRepository User repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\User                          $user    User entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -129,13 +142,13 @@ class UserController extends AbstractController
      *     name="user_edit",
      * )
      */
-    public function edit(Request $request, User $user, UserRepository $userRepository): Response
+    public function edit(Request $request, User $user): Response
     {
         $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $userRepository->save($user);
+            $this->userService->save($user);
             $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('user_index');    /* TODO: make different for user edit and admin edit. */

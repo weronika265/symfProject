@@ -8,6 +8,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +21,22 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
  */
 class RegistrationController extends AbstractController
 {
+    private UserService $userService;
+
+    /**
+     * RegistrationController constructor.
+     */
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     /**
      * Register action.
      *
      * @Route(
      *     "/register",
+     *     methods={"GET", "POST"},
      *     name="app_register",
      * )
      */
@@ -35,18 +47,7 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
+            $this->userService->registerUser($user, $form->get('password')->getData());
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
