@@ -11,7 +11,7 @@ p {
     top: 0;
     left: 0;
     overflow-x: hidden;
-    background-color: darkslateblue;
+    background-color: #0052AA;
 }
 
 .sidenav a {
@@ -40,9 +40,7 @@ p {
 }
 
 #accountBar {
-    /*position: absolute;
-    left: 88%;*/
-    background-color: darkslateblue;
+    background-color: #0052AA;
     padding: 10px 25px;
     color: #818181;
 }
@@ -74,10 +72,21 @@ i {
     padding: 5px;
 }
 
-th {
-    /*background-color: darkslateblue;*/
-}
-
 #center td {
     padding-top: 25px;
 }
+
+/*.btn-lg btn-primary {
+    background-color: darkslateblue !important;
+    color: #818181 !important;
+}
+
+.btn-outline-primary, .btn-outline-primary:hover {
+    color: darkslateblue !important;
+    border-color: darkslateblue !important;
+}
+
+.btn-outline-primary:hover {
+    color: white !important;
+    background-color: darkslateblue !important;
+}*/

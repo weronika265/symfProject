@@ -17,6 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
  * Class EventType.
@@ -90,7 +91,12 @@ class EventType extends AbstractType
                 'label' => 'label_category',
                 'placeholder' => 'label_none',
                 'required' => true,
-            ]
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Wybierz kategorię',
+                    ]),
+                ],
+            ],
         );
         $builder->add(
             'tags',

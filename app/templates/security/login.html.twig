@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}
+    {{ 'title_log_in'|trans }}
+{% endblock %}
 
 {% block body %}
 <form method="post">
@@ -10,14 +12,14 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            {{ 'message_logged_in_as'|trans }} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{ 'label_logout'|trans }}</a>
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputUsername">Username</label>
+    <h1 class="h3 mb-3 font-weight-normal">{{ 'message_please_sign_in'|trans }}</h1>
+    <label for="inputUsername">{{ 'label_username'|trans }}</label>
     <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" required autofocus>
-    <label for="inputPassword">Password</label>
+    <label for="inputPassword">{{ 'label_password'|trans }}</label>
     <input type="password" name="password" id="inputPassword" class="form-control" required>
 
     <input type="hidden" name="_csrf_token"
@@ -36,11 +38,13 @@
     #}
 
     <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <button class="btn btn-lg btn-primary" >
-        <a href=" {{ url('app_register') }} "></a>
-        Register
+        {{ 'label_sign_in'|trans }}
     </button>
 </form>
+
+    <button class="btn btn-outline-primary">
+        <a href=" {{ url('app_register') }} " style="text-decoration: none;">
+            {{ 'label_register'|trans }}
+        </a>
+    </button>
 {% endblock %}

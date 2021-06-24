@@ -39,7 +39,7 @@ class Tag
      *
      * @ORM\Column(
      *     type="string",
-     *     length=32
+     *     length=32,
      * )
      *
      * @Assert\Type(type="string")

@@ -42,6 +42,7 @@ class Contact
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
+     *     min="3",
      *     max="45",
      * )
      */
@@ -60,6 +61,7 @@ class Contact
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
+     *     min="3",
      *     max="64",
      * )
      */
@@ -79,7 +81,7 @@ class Contact
      * @Assert\Type(type="string")
      * @Assert\Length(
      *     min="10",
-     *     max="64",
+     *     max="15",
      * )
      */
     private $phoneNumber;
@@ -97,7 +99,7 @@ class Contact
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
-     *     min="7",
+     *     min="8",
      *     max="50",
      * )
      */
@@ -127,7 +129,6 @@ class Contact
      * @ORM\JoinColumn(nullable=false)
      */
     private $author;
-    /* TODO: change to user everywhere? */
 
     /**
      * Contact constructor.

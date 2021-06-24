@@ -61,8 +61,15 @@ class User implements UserInterface
      *
      * @ORM\Column(
      *     type="string",
-     *     length=180,
+     *     length=32,
      *     unique=true,
+     * )
+     *
+     * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="6",
+     *     max="32",
      * )
      */
     private $username;
@@ -81,8 +88,12 @@ class User implements UserInterface
      *
      * @ORM\Column(type="string")
      *
-     * @Assert\NotBlank
      * @Assert\Type(type="string")
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *     min="6",
+     *     max="255",
+     * )
      */
     private $password = '';
 
@@ -98,6 +109,10 @@ class User implements UserInterface
      *
      * @Assert\NotBlank
      * @Assert\Email
+     * @Assert\Length(
+     *     min="8",
+     *     max="50",
+     * )
      */
     private $email;
 

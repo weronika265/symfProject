@@ -7,9 +7,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
-use App\Repository\EventRepository;
 use App\Service\CalendarService;
-use Knp\Component\Pager\PaginatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
@@ -26,10 +24,8 @@ class CalendarController extends AbstractController
 {
     /**
      * Calendar service.
-     *
-     * @var \App\Service\CalendarService
      */
-    private $calendarService;
+    private CalendarService $calendarService;
 
     /**
      * CalendarController constructor.
@@ -44,9 +40,7 @@ class CalendarController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
-     * @param \Knp\Component\Pager\PaginatorInterface   $paginator       Paginator
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -103,8 +97,7 @@ class CalendarController extends AbstractController
     /**
      * Create action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -117,7 +110,7 @@ class CalendarController extends AbstractController
      *     name="calendar_create",
      * )
      */
-    public function create(Request $request, EventRepository $eventRepository): Response
+    public function create(Request $request): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -139,9 +132,8 @@ class CalendarController extends AbstractController
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Event                         $event   Event entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -160,7 +152,7 @@ class CalendarController extends AbstractController
      *     subject="event",
      * )
      */
-    public function edit(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function edit(Request $request, Event $event): Response
     {
         $form = $this->createForm(EventType::class, $event, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -184,9 +176,8 @@ class CalendarController extends AbstractController
     /**
      * Delete action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request         HTTP request
-     * @param \App\Entity\Event                         $event           Event entity
-     * @param \App\Repository\EventRepository           $eventRepository Event repository
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
+     * @param \App\Entity\Event                         $event   Event entity
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -205,7 +196,7 @@ class CalendarController extends AbstractController
      *     subject="event",
      * )
      */
-    public function delete(Request $request, Event $event, EventRepository $eventRepository): Response
+    public function delete(Request $request, Event $event): Response
     {
         $form = $this->createForm(FormType::class, $event, ['method' => 'DELETE']);
         $form->handleRequest($request);

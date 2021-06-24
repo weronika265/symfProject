@@ -7,6 +7,7 @@ namespace App\Entity;
 
 use App\Repository\UserDataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -14,6 +15,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @ORM\Entity(repositoryClass="App\Repository\UserDataRepository")
  * @ORM\Table(name="user_data")
+ *
+ * @UniqueEntity(fields={"data"})
  */
 class UserData
 {
@@ -60,7 +63,7 @@ class UserData
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
-     *     min="2",
+     *     min="3",
      *     max="45",
      * )
      */
@@ -79,7 +82,7 @@ class UserData
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
-     *     min="2",
+     *     min="3",
      *     max="45",
      * )
      */

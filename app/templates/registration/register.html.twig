@@ -1,23 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}
+    {{ 'title_register'|trans }}
+{% endblock %}
 
 {% block body %}
     {% for flashError in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flashError }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <h1>{{ 'title_register'|trans }}</h1>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.password, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        {{ form_row(registrationForm.username, { label: 'Nazwa użytkownika' }) }}
+        {{ form_row(registrationForm.password, { label: 'Hasło' }) }}
+        {{ form_row(registrationForm.email, { label: 'Email' }) }}
 
-        <button type="submit" class="btn">Register</button>
+        <button class="btn btn-outline-primary" type="submit" class="btn">
+            {{ 'label_complete_register'|trans }}
+        </button>
     {{ form_end(registrationForm) }}
+
+    <a href="{{ url('app_login') }}" title="{{ 'action_back_to_list'|trans }}">
+        {{ 'action_back_to_list'|trans }}
+    </a>
 {% endblock %}
-{# password -> plainPassword #}

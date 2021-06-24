@@ -50,17 +50,17 @@
                         <td>
                             {% if is_granted('VIEW', event) %}
                             <a href="{{ url('calendar_show', {id: event.id}) }}" title="{{ 'action_view'|trans }}">
-                                {{ 'action_view'|trans }}
+                                <i class="bi bi-arrows-angle-expand"></i>
                             </a>
                             {% endif %}
                             {% if is_granted('EDIT', event) %}
                                 <a href="{{ url('calendar_edit', {id: event.id}) }}" title="{{ 'action_edit'|trans }}">
-                                    {{ 'action_edit'|trans }}
+                                    <i class="bi bi-three-dots-vertical" style="color: black;"></i>
                                 </a>
                             {% endif %}
                             {% if is_granted('DELETE', event) %}
                                 <a href="{{ url('calendar_delete', {id: event.id}) }}" title="{{ 'action_delete'|trans }}">
-                                    {{ 'action_delete'|trans }}
+                                    <i class="bi bi-x" style="color: red;"></i>
                                 </a>
                             {% endif %}
                             {# TODO: connect with event forms and redirect to this site. #}

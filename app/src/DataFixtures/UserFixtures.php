@@ -39,7 +39,7 @@ class UserFixtures extends AbstractBaseFixtures
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(10, 'users', function ($i) {
+        $this->createMany(3, 'users', function ($i) {
             $user = new User();
             $user->setUsername(sprintf('user%d', $i));
             $user->setEmail(sprintf('user%d@example.com', $i));
@@ -54,7 +54,7 @@ class UserFixtures extends AbstractBaseFixtures
             return $user;
         });
 
-        $this->createMany(3, 'admins', function ($i) {
+        $this->createMany(1, 'admins', function ($i) {
             $user = new User();
             $user->setUsername(sprintf('admin%d', $i));
             $user->setEmail(sprintf('admin%d@example.com', $i));

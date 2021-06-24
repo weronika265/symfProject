@@ -132,7 +132,7 @@
             </trans-unit>
             <trans-unit id="title_contact_delete">
                 <source>title_contact_delete</source>
-                <target>Delete?</target>
+                <target>Delete contact?</target>
             </trans-unit>
             <trans-unit id="action_event_create">
                 <source>action_event_create</source>
@@ -170,8 +170,8 @@
                 <source>title_user_list</source>
                 <target>List of users</target>
             </trans-unit>
-            <trans-unit id="label_user_name">
-                <source>label_user_name</source>
+            <trans-unit id="label_username">
+                <source>label_username</source>
                 <target>Username</target>
             </trans-unit>
             <trans-unit id="message_welcome">
@@ -181,6 +181,98 @@
             <trans-unit id="message_empty_list">
                 <source>message_empty_list</source>
                 <target>No records found</target>
+            </trans-unit>
+            <trans-unit id="message_item_not_found">
+                <source>message_item_not_found</source>
+                <target>Item not found</target>
+            </trans-unit>
+            <trans-unit id="message_form_error">
+                <source>message_form_error</source>
+                <target>Form error</target>
+            </trans-unit>
+            <trans-unit id="title_home">
+                <source>title_home</source>
+                <target>Welcome</target>
+            </trans-unit>
+            <trans-unit id="title_user_details">
+                <source>title_user_details</source>
+                <target>User details</target>
+            </trans-unit>
+            <trans-unit id="label_user_email">
+                <source>label_user_email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label_password">
+                <source>label_password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label_password_repeat">
+                <source>label_password_repeat</source>
+                <target>Repeat password</target>
+            </trans-unit>
+            <trans-unit id="title_user_edit">
+                <source>title_user_edit</source>
+                <target>User edit</target>
+            </trans-unit>
+            <trans-unit id="title_event_edit">
+                <source>title_event_edit</source>
+                <target>Event edit</target>
+            </trans-unit>
+            <trans-unit id="title_event_delete">
+                <source>title_event_delete</source>
+                <target>Delete event?</target>
+            </trans-unit>
+            <trans-unit id="title_contact_create">
+                <source>title_contact_create</source>
+                <target>Contact creation</target>
+            </trans-unit>
+            <trans-unit id="title_event_create">
+                <source>title_event_create</source>
+                <target>Event creation</target>
+            </trans-unit>
+            <trans-unit id="label_category">
+                <source>label_category</source>
+                <target>Category</target>
+            </trans-unit>
+            <trans-unit id="title_log_in">
+                <source>title_log_in</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="message_please_sign_in">
+                <source>message_please_sign_in</source>
+                <target>Please sign in</target>
+            </trans-unit>
+            <trans-unit id="label_sign_in">
+                <source>label_sign_in</source>
+                <target>Sign in</target>
+            </trans-unit>
+            <trans-unit id="title_register">
+                <source>title_register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="label_register">
+                <source>label_register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="label_complete_register">
+                <source>label_complete_register</source>
+                <target>Register</target>
+            </trans-unit>
+            <trans-unit id="title_category_edit">
+                <source>title_category_edit</source>
+                <target>Category edit</target>
+            </trans-unit>
+            <trans-unit id="title_category_create">
+                <source>title_category_create</source>
+                <target>Category creation</target>
+            </trans-unit>
+            <trans-unit id="title_tag_delete">
+                <source>title_tag_delete</source>
+                <target>Delete tag?</target>
+            </trans-unit>
+            <trans-unit id="message_logged_in_as">
+                <source>message_logged_in_as</source>
+                <target>Delete tag?</target>
             </trans-unit>
         </body>
     </file>

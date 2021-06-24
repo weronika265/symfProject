@@ -18,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table(name="events")
  *
+ * @UniqueEntity(fields={"name"})
  */
 class Event
 {
@@ -45,7 +46,8 @@ class Event
      * @Assert\Type(type="string")
      * @Assert\NotBlank
      * @Assert\Length(
-     *     max="64",
+     *     min="3",
+     *     max="45",
      * )
      */
     private $name;

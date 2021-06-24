@@ -22,12 +22,12 @@ class UserDataFixtures extends AbstractBaseFixtures implements DependentFixtureI
      */
     public function loadData(ObjectManager $manager): void
     {
-        $this->createMany(13, 'userdata', function ($i) {
+        $this->createMany(4, 'userdata', function ($i) {
             $userData = new userData();
             $userData->setData($this->faker->sentence);
             $userData->setFirstName($this->faker->firstName);
             $userData->setSurname($this->faker->lastName);
-            $userData->setUser($this->getRandomReference('users'));
+            /*$userData->setUser($this->getRandomReference('users'));*/
 
             return $userData;
         });

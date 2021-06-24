@@ -31,7 +31,7 @@
                                 {{ 'action_edit'|trans }}
                             </a>  #}{# DELETE? #}
                             <a href="{{ url('tag_delete', {id: tag.id}) }}" title="{{ 'action_delete'|trans }}">
-                                {{ 'action_delete'|trans }}
+                                <i class="bi bi-x" style="color: red;"></i>
                             </a>{# TODO: Make removable tag if connected to event. #}
                         </td>
                     </tr>

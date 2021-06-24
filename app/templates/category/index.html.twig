@@ -28,11 +28,11 @@
                         <td>{{ category.name }}</td>
                         <td>
                             <a href="{{ url('category_edit', {id: category.id}) }}" title="{{ 'action_edit'|trans }}">
-                                {{ 'action_edit'|trans }}
+                                <i class="bi bi-three-dots-vertical" style="color: black;"></i>
                             </a>
                             {% if not category.events|length %}
                             <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action_delete'|trans }}">
-                                {{ 'action_delete'|trans }}
+                                <i class="bi bi-x" style="color: red;"></i>
                             </a>
                             {% endif %}
                         </td>

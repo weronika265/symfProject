@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="dropdown"">
+    <div id="dropdown">
         <div id="accountBar"><i class="bi bi-person-fill"></i>
             {{ app.user.username }}
         </div>
@@ -16,7 +16,7 @@
     </div>
 
     <div class="sidenav" style="padding-top: 25px;">
-        {% if (is_granted('ROLE_USER')) %}
+        {% if (is_granted('IS_AUTHENTICATED_FULLY') and (is_granted('ROLE_ADMIN') == false) ) %}
         <a href="{{ url('contact_index') }}"><i class="bi bi-people-fill"></i>
             {{ 'label_contacts'|trans }}
         </a>
@@ -29,7 +29,7 @@
         </a>
         {% endif %}
         {# TODO: fix it by adding is_granted('IS_AUTHENTICATED_FULLY') #}
-        {% if (is_granted('ROLE_ADMIN')) %}
+        {% if (is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')) %}
         <a href="{{ url('user_index') }}"><i class="bi bi-person-lines-fill"></i>
             {{ 'label_users'|trans }}
         </a>
