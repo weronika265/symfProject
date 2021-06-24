@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="dropdown">
+    <div id="dropdown"">
         <div id="accountBar"><i class="bi bi-person-fill"></i>
             {{ app.user.username }}
         </div>
@@ -20,7 +20,7 @@
         <a href="{{ url('contact_index') }}"><i class="bi bi-people-fill"></i>
             {{ 'label_contacts'|trans }}
         </a>
-        <a href="{{ url('event_index_all') }}">
+        <a href="{{ url('calendar_index') }}">
             <i class="bi bi-calendar-date"></i>
             {{ 'label_calendar'|trans }}
         </a>

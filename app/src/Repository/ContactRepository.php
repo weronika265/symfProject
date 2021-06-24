@@ -6,10 +6,11 @@
 namespace App\Repository;
 
 use App\Entity\Contact;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\QueryBuilder;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * Class ContactRepository.
@@ -47,28 +48,49 @@ class ContactRepository extends ServiceEntityRepository
      *
      * @return \Doctrine\ORM\QueryBuilder QueryBuilder
      */
-    public function queryAll(): QueryBuilder
+    public function queryAll(array $filters = []): QueryBuilder
     {
-        return $this->getOrCreateQueryBuilder()
+        $queryBuilder = $this->getOrCreateQueryBuilder()
             ->select(
                 'partial contact.{id, firstName, surname, phoneNumber, email}',
                 'partial tags.{id, name}'
             )
             ->leftJoin('contact.tags', 'tags')
             ->orderBy('contact.surname');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
+        }
+
+        return $queryBuilder;
     }
 
     /**
      * Query tasks by author.
      *
-     * @param \App\Entity\User $user User entity
+     * @param \App\Entity\User $user    User entity
+     * @param array            $filters Filters array
      *
      * @return \Doctrine\ORM\QueryBuilder Query builder
      */
-    public function queryByAuthor(User $user): QueryBuilder
+    public function queryByAuthor(User $user, array $filters = []): QueryBuilder
     {
-        $queryBuilder = $this->queryAll();
-
+        $queryBuilder = $this->queryAll($filters);
         $queryBuilder->andWhere('contact.author = :author')
             ->setParameter('author', $user);
 

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title_event_details'|trans({'%name%': event.name|default('')}) }}
+{% endblock %}
+
+{% block body %}
+    {% include 'menu.html.twig' %}
+    <div class="display">
+        <h1>{{ 'title_event_details'|trans({'%name%': event.name|default('')}) }}</h1>
+        {% if event is defined and event|length %}
+            <dl class="dl-horizontal">
+                <dt>{{ 'label_date'|trans }}</dt>
+                <dd>{{ event.date|date('d/m/Y') }}</dd>
+                <dt>{{ 'label_description '|trans }}</dt>
+                <dd>{{  event.description }}</dd>
+                <dt>{{ 'label_event_category'|trans }}</dt>
+                <dd>{{  event.category.name }}</dd>
+                <dt>{{ 'label_tags'|trans }}</dt>
+                <dd>
+                    {% if event.tags is defined and event.tags|length %}
+                        {% for tag in event.tags %}
+                            {{ tag.name }}
+                        {% endfor %}
+                    {% else %}
+                        &nbsp;
+                    {% endif %}
+                </dd>
+            </dl>
+            <p>
+                <a href="{{ url('calendar_index') }}" title="{{ 'action_back_to_list'|trans }}">
+                    {{ 'action_back_to_list'|trans }}
+                </a>
+            </p>
+        {% else %}
+            <p>
+                {{ 'message_item_not_found'|trans }}
+                {#<i class="bi bi-arrow-left icon-3x"></i>#}
+            </p>
+        {% endif %}
+    </div>
+{% endblock %}

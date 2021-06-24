@@ -38,7 +38,9 @@
                         <td>
                             {% if contact.tags is defined and contact.tags|length %}
                                 {% for tag in contact.tags %}
-                                    {{ tag.name }}
+                                    <a href="{{ url('contact_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.name }}">
+                                        {{ tag.name }}
+                                    </a>
                                 {% endfor %}
                             {% else %}
                                 &nbsp;

@@ -75,6 +75,8 @@ class CategoryRepository extends ServiceEntityRepository
     public function queryAll(): QueryBuilder
     {
         return $this->getOrCreateQueryBuilder();
+        /*->select('category', 'partial events.{id}')
+        ->join('category.events', 'events');*/
     }
 
     /**

@@ -5,7 +5,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Event;
+use App\Entity\Tag;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -105,6 +107,7 @@ class EventRepository extends ServiceEntityRepository
             ->join('event.category', 'category')
             ->leftJoin('event.tags', 'tags')
             ->orderBy('event.date', 'DESC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
 
         if (array_key_exists('date_from', $filters) && strlen($filters['date_from'])) {
             $queryBuilder
@@ -116,6 +119,29 @@ class EventRepository extends ServiceEntityRepository
             $queryBuilder
                 ->andWhere('event.date <= :date_to')
                     ->setParameter('date_to', $filters['date_to']);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
+     * Apply filters to paginated list.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
+     * @param array                      $filters      Filters array
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    private function applyFiltersToList(QueryBuilder $queryBuilder, array $filters = []): QueryBuilder
+    {
+        if (isset($filters['category']) && $filters['category'] instanceof Category) {
+            $queryBuilder->andWhere('category = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (isset($filters['tag']) && $filters['tag'] instanceof Tag) {
+            $queryBuilder->andWhere('tags IN (:tag)')
+                ->setParameter('tag', $filters['tag']);
         }
 
         return $queryBuilder;

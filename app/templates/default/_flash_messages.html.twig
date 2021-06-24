@@ -7,7 +7,7 @@ prefix fragments with an underscore. That's why this template is called
 '_flash_messages.html.twig' instead of 'flash_messages.html.twig'
 #}
 {% if app.session.flashBag.peekAll is defined and app.session.flashBag.peekAll is not empty %}
-    <div class="messages">
+    <div class="messages" style="margin: auto; width: 50%;">
         {% for type, messages in app.session.flashBag.all %}
             {% for message in messages %}
                 {%  include 'default/_single_flash_message.html.twig' with {
