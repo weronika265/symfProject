@@ -19,7 +19,7 @@ class ContactVoter extends Voter
     /**
      * Security helper.
      *
-     * @var \Symfony\Component\Security\Core\Security
+     * @var \Symfony\Component\Security\Core\Security Security helper
      */
     private $security;
 

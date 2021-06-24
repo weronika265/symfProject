@@ -18,16 +18,16 @@ class CategoryService
     /**
      * Category repository.
      *
-     * @var \App\Repository\CategoryRepository
+     * @var \App\Repository\CategoryRepository Category repository
      */
-    private $categoryRepository;
+    private CategoryRepository $categoryRepository;
 
     /**
      * Paginator.
      *
-     * @var \Knp\Component\Pager\PaginatorInterface
+     * @var \Knp\Component\Pager\PaginatorInterface Paginator
      */
-    private $paginator;
+    private PaginatorInterface $paginator;
 
     /**
      * CategoryService constructor.

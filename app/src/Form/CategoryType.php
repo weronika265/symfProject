@@ -3,8 +3,6 @@
  * Category type.
  */
 
-// TODO Modify Category form everywhere.
-
 namespace App\Form;
 
 use App\Entity\Category;

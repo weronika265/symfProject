@@ -18,27 +18,31 @@ class CalendarService
 {
     /**
      * Event repository.
+     *
+     * @var \App\Repository\EventRepository Event repository
      */
     private EventRepository $eventRepository;
 
     /**
      * Paginator.
+     *
+     * @var \Knp\Component\Pager\PaginatorInterface Paginator
      */
     private PaginatorInterface $paginator;
 
     /**
      * Category service.
      *
-     * @var \App\Service\CategoryService
+     * @var \App\Service\CategoryService Category service
      */
-    private $categoryService;
+    private CategoryService $categoryService;
 
     /**
      * Tag service.
      *
-     * @var \App\Service\TagService
+     * @var \App\Service\TagService Tag service
      */
-    private $tagService;
+    private TagService $tagService;
 
     /**
      * EventService constructor.
@@ -77,6 +81,34 @@ class CalendarService
     }
 
     /**
+     * Save event.
+     *
+     * @param \App\Entity\Event $event Event entity
+     * @param \App\Entity\User  $user  User interface
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function save(Event $event, UserInterface $user): void
+    {
+        $event->setAuthor($user);
+        $this->eventRepository->save($event);
+    }
+
+    /**
+     * Delete event.
+     *
+     * @param \App\Entity\Event $event Event entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function delete(Event $event): void
+    {
+        $this->eventRepository->delete($event);
+    }
+
+    /**
      * Prepare filters for the tasks list.
      *
      * @param array $filters Raw filters from request
@@ -103,33 +135,5 @@ class CalendarService
         }
 
         return $resultFilters;
-    }
-
-    /**
-     * Save event.
-     *
-     * @param \App\Entity\Event $event Event entity
-     * @param \App\Entity\User  $user  User interface
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function save(Event $event, UserInterface $user): void
-    {
-        $event->setAuthor($user);
-        $this->eventRepository->save($event);
-    }
-
-    /**
-     * Delete event.
-     *
-     * @param \App\Entity\Event $event Event entity
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     */
-    public function delete(Event $event): void
-    {
-        $this->eventRepository->delete($event);
     }
 }

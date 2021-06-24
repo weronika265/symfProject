@@ -24,7 +24,7 @@ class CategoryController extends AbstractController
     /**
      * Category service.
      *
-     * @var \App\Service\CategoryService
+     * @var \App\Service\CategoryService Category service
      */
     private CategoryService $categoryService;
 

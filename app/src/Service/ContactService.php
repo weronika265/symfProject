@@ -18,18 +18,22 @@ class ContactService
 {
     /**
      * Contact repository.
+     *
+     * @var \App\Repository\ContactRepository Contact repository
      */
     private ContactRepository $contactRepository;
 
     /**
      * Paginator.
+     *
+     * @var \Knp\Component\Pager\PaginatorInterface Paginator
      */
     private PaginatorInterface $paginator;
 
     /**
      * Tag service.
      *
-     * @var \App\Service\TagService
+     * @var \App\Service\TagService Tag service
      */
     private $tagService;
 
@@ -38,6 +42,7 @@ class ContactService
      *
      * @param \App\Repository\ContactRepository       $contactRepository Contact repository
      * @param \Knp\Component\Pager\PaginatorInterface $paginator         Paginator
+     * @param \App\Service\TagService                 $tagService        Tag service
      */
     public function __construct(ContactRepository $contactRepository, PaginatorInterface $paginator, TagService $tagService)
     {
@@ -67,27 +72,6 @@ class ContactService
     }
 
     /**
-     * Prepare filters for the tasks list.
-     *
-     * @param array $filters Raw filters from request
-     *
-     * @return array Result array of filters
-     */
-    private function prepareFilters(array $filters): array
-    {
-        $resultFilters = [];
-
-        if (isset($filters['tag_id']) && is_numeric($filters['tag_id'])) {
-            $tag = $this->tagService->findOneById($filters['tag_id']);
-            if (null !== $tag) {
-                $resultFilters['tag'] = $tag;
-            }
-        }
-
-        return $resultFilters;
-    }
-
-    /**
      * Save contact.
      *
      * @param \App\Entity\Contact $contact Contact entity
@@ -113,5 +97,26 @@ class ContactService
     public function delete(Contact $contact): void
     {
         $this->contactRepository->delete($contact);
+    }
+
+    /**
+     * Prepare filters for the tasks list.
+     *
+     * @param array $filters Raw filters from request
+     *
+     * @return array Result array of filters
+     */
+    private function prepareFilters(array $filters): array
+    {
+        $resultFilters = [];
+
+        if (isset($filters['tag_id']) && is_numeric($filters['tag_id'])) {
+            $tag = $this->tagService->findOneById($filters['tag_id']);
+            if (null !== $tag) {
+                $resultFilters['tag'] = $tag;
+            }
+        }
+
+        return $resultFilters;
     }
 }

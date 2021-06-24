@@ -44,6 +44,41 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
+     * Query all records.
+     *
+     * @param array $filters Array of filters
+     *
+     * @return \Doctrine\ORM\QueryBuilder Query builder
+     */
+    public function queryAll(array $filters = []): QueryBuilder
+    {
+        $queryBuilder = $this->getOrCreateQueryBuilder()
+            ->select(
+                'partial event.{id, name, date, description}',
+                'partial category.{id, name}',
+                'partial tags.{id, name}'
+            )
+            ->join('event.category', 'category')
+            ->leftJoin('event.tags', 'tags')
+            ->orderBy('event.date', 'DESC');
+        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
+
+        if (array_key_exists('date_from', $filters) && strlen($filters['date_from'])) {
+            $queryBuilder
+                ->andWhere('event.date >= :date_from')
+                    ->setParameter('date_from', $filters['date_from']);
+        }
+
+        if (array_key_exists('date_to', $filters) && strlen($filters['date_to'])) {
+            $queryBuilder
+                ->andWhere('event.date <= :date_to')
+                    ->setParameter('date_to', $filters['date_to']);
+        }
+
+        return $queryBuilder;
+    }
+
+    /**
      * Query tasks by author.
      *
      * @param \App\Entity\User $user    User entity
@@ -90,41 +125,6 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
-     * Query all records.
-     *
-     * @param array $filters Array of filters
-     *
-     * @return \Doctrine\ORM\QueryBuilder Query builder
-     */
-    public function queryAll(array $filters = []): QueryBuilder
-    {
-        $queryBuilder = $this->getOrCreateQueryBuilder()
-            ->select(
-                'partial event.{id, name, date, description}',
-                'partial category.{id, name}',
-                'partial tags.{id, name}'
-            )
-            ->join('event.category', 'category')
-            ->leftJoin('event.tags', 'tags')
-            ->orderBy('event.date', 'DESC');
-        $queryBuilder = $this->applyFiltersToList($queryBuilder, $filters);
-
-        if (array_key_exists('date_from', $filters) && strlen($filters['date_from'])) {
-            $queryBuilder
-                ->andWhere('event.date >= :date_from')
-                    ->setParameter('date_from', $filters['date_from']);
-        }
-
-        if (array_key_exists('date_to', $filters) && strlen($filters['date_to'])) {
-            $queryBuilder
-                ->andWhere('event.date <= :date_to')
-                    ->setParameter('date_to', $filters['date_to']);
-        }
-
-        return $queryBuilder;
-    }
-
-    /**
      * Apply filters to paginated list.
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder Query builder
@@ -158,33 +158,4 @@ class EventRepository extends ServiceEntityRepository
     {
         return $queryBuilder ?? $this->createQueryBuilder('event');
     }
-
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Event
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

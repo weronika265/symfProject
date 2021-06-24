@@ -18,11 +18,15 @@ class EventService
 {
     /**
      * Event repository.
+     *
+     * @var \App\Repository\EventRepository Event repository
      */
     private EventRepository $eventRepository;
 
     /**
      * Paginator.
+     *
+     * @var \Knp\Component\Pager\PaginatorInterface Paginator
      */
     private PaginatorInterface $paginator;
 
@@ -48,7 +52,7 @@ class EventService
     public function createPaginatedList(int $page): PaginationInterface
     {
         return $this->paginator->paginate(
-            $this->eventRepository->queryAll(), /*queryByAuthor($this->getUser()), //??*/
+            $this->eventRepository->queryAll(),
             $page,
             EventRepository::PAGINATOR_ITEMS_PER_PAGE
         );

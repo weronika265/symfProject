@@ -17,7 +17,6 @@
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    {#<th>{{ knp_pagination_sortable(pagination, 'label_contact_id'|trans, 'contact.id') }}</th>#}
                     <th></th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_first_name'|trans, 'contact.firstName') }}</th>
                     <th>{{ knp_pagination_sortable(pagination, 'label_surname'|trans, 'contact.surname') }}</th>
@@ -67,11 +66,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            {#<a class="btn btn-outline-primary" href="{{ url('contact_create') }}" title="{{ 'action_contact_create'|trans }}">
-                <i class="bi bi-person-plus"></i>
-                {{ 'action_contact_create'|trans }}
-            </a>#}
 
         {% else %}
             <p>

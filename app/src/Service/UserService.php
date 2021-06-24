@@ -14,12 +14,25 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  */
 class UserService
 {
+    /**
+     * User repository.
+     *
+     * @var \App\Repository\UserRepository User repository
+     */
     private UserRepository $userRepository;
 
+    /**
+     * User password encoder.
+     *
+     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface Password encoder
+     */
     private UserPasswordEncoderInterface $passwordEncoder;
 
     /**
      * UserService constructor.
+     *
+     * @param \App\Repository\UserRepository                                        $userRepository  User repository
+     * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder Password encoder
      */
     public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -28,6 +41,11 @@ class UserService
     }
 
     /**
+     * Register user.
+     *
+     * @param \App\Entity\User $user          User entity
+     * @param string           $plainPassword Plain password
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -40,6 +58,10 @@ class UserService
     }
 
     /**
+     * Save user.
+     *
+     * @param User $user User entity
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -53,7 +75,12 @@ class UserService
     }
 
     /**
-     * @return string
+     * Encode password.
+     *
+     * @param User   $user          User entity
+     * @param string $plainPassword Plain password
+     *
+     * @return string Encoded password
      */
     private function encodePassword(User $user, string $plainPassword)
     {

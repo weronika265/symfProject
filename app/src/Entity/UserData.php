@@ -115,7 +115,7 @@ class UserData
     /**
      * Getter for Data.
      *
-     * @return string|null data
+     * @return string|null Data
      */
     public function getData(): ?string
     {

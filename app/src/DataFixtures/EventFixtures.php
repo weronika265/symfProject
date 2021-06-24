@@ -30,15 +30,6 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
             $event->setCategory($this->getRandomReference('categories'));
             $event->addTag($this->getRandomReference('tags'));
 
-            /*            $tags = $this->getRandomReference(
-                            'tags',
-                            $this->faker->numberBetween(0, 5)
-                        );
-
-                        foreach ($tags as $tag) {
-                            $event->addTag($tag);
-                        }*/
-
             $event->setAuthor($this->getRandomReference('users'));
 
             return $event;
@@ -52,6 +43,8 @@ class EventFixtures extends AbstractBaseFixtures implements DependentFixtureInte
      * on which the implementing class depends on.
      *
      * @psalm-return array<class-string<FixtureInterface>>
+     *
+     * @return string[]
      */
     public function getDependencies()
     {

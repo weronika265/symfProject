@@ -80,7 +80,7 @@ class UserDataController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->UserService->save($userData);
+            $this->userDataService->save($userData);
             $this->addFlash('success', 'message_updated_successfully');
 
             return $this->redirectToRoute('user_index');    /* TODO: make different for userData edit and admin edit. */

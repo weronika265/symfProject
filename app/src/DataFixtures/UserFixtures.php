@@ -18,7 +18,7 @@ class UserFixtures extends AbstractBaseFixtures
     /**
      * Password encoder.
      *
-     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface
+     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface User password encoder
      */
     private $passwordEncoder;
 

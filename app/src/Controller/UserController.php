@@ -10,7 +10,6 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\UserService;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,12 +24,16 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     /**
-     * @var UserService
+     * User service.
+     *
+     * @var \App\Service\UserService User service
      */
     private UserService $userService;
 
     /**
      * UserController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
      */
     public function __construct(UserService $userService)
     {
@@ -51,8 +54,6 @@ class UserController extends AbstractController
      *     methods={"GET"},
      *     name="user_index",
      * )
-     *
-     * @Security("has_role('ROLE_ADMIN')")
      */
     public function index(Request $request, userRepository $userRepository, PaginatorInterface $paginator): Response
     {

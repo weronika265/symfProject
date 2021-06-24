@@ -24,6 +24,8 @@ class CalendarController extends AbstractController
 {
     /**
      * Calendar service.
+     *
+     * @var \App\Service\CalendarService Event service
      */
     private CalendarService $calendarService;
 

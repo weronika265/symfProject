@@ -30,15 +30,6 @@ class ContactFixtures extends AbstractBaseFixtures implements DependentFixtureIn
             $contact->setEmail($this->faker->email);
             $contact->addTag($this->getRandomReference('tags'));
 
-/*            $tags = $this->getRandomReference(
-                'tags',
-                    $this->faker->numberBetween(0, 5)
-            );
-
-            foreach ($tags as $tag) {
-                $contact->addTag($tag);
-            }*/
-
             $contact->setAuthor($this->getRandomReference('users'));
 
             return $contact;
@@ -52,6 +43,8 @@ class ContactFixtures extends AbstractBaseFixtures implements DependentFixtureIn
      * on which the implementing class depends on.
      *
      * @psalm-return array<class-string<FixtureInterface>>
+     *
+     * @return string[]
      */
     public function getDependencies(): array
     {

@@ -3,13 +3,10 @@
  * Event type.
  */
 
-// TODO Modify Event form everywhere.
-
 namespace App\Form;
 
 use App\Entity\Category;
 use App\Entity\Event;
-use App\Entity\Tag;
 use App\Form\DataTransformer\TagsDataTransformer;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,9 +24,9 @@ class EventType extends AbstractType
     /**
      * Tags data transformer.
      *
-     * @var \App\Form\DataTransformer\TagsDataTransformer
+     * @var \App\Form\DataTransformer\TagsDataTransformer Tags data transformer
      */
-    private $tagsDataTransformer;
+    private TagsDataTransformer $tagsDataTransformer;
 
     /**
      * TaskType constructor.

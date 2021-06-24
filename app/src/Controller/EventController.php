@@ -29,7 +29,7 @@ class EventController extends AbstractController
      *
      * @var \App\Service\EventService
      */
-    private $eventService;
+    private EventService $eventService;
 
     /**
      * EventController constructor.

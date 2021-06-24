@@ -15,12 +15,17 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class TagService
 {
+    /**
+     * Tag repository.
+     *
+     * @var TagRepository Tag repository
+     */
     private TagRepository $tagRepository;
 
     /**
      * Paginator.
      *
-     * @var \Knp\Component\Pager\PaginatorInterface
+     * @var \Knp\Component\Pager\PaginatorInterface Paginator
      */
     private $paginator;
 
@@ -65,6 +70,18 @@ class TagService
     }
 
     /**
+     * Find by title.
+     *
+     * @param string $title Tag title
+     *
+     * @return \App\Entity\Tag|null Tag entity
+     */
+    public function findOneByName(string $title): ?Tag
+    {
+        return $this->tagRepository->findOneByName($title);
+    }
+
+    /**
      * Save category.
      *
      * @param \App\Entity\Tag $tag Tag entity
@@ -88,17 +105,5 @@ class TagService
     public function delete(Tag $tag): void
     {
         $this->tagRepository->delete($tag);
-    }
-
-    /**
-     * Find by title.
-     *
-     * @param string $title tag title
-     *
-     * @return \App\Entity\Tag|null Tag entity
-     */
-    public function findOneByName(string $title): ?Tag
-    {
-        return $this->tagRepository->findOneByName($title);
     }
 }

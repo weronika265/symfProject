@@ -13,7 +13,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 
 /**
@@ -21,10 +20,17 @@ use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
  */
 class RegistrationController extends AbstractController
 {
+    /**
+     * User service.
+     *
+     * @var \App\Service\UserService User service
+     */
     private UserService $userService;
 
     /**
      * RegistrationController constructor.
+     *
+     * @param \App\Service\UserService $userService User service
      */
     public function __construct(UserService $userService)
     {
@@ -34,13 +40,22 @@ class RegistrationController extends AbstractController
     /**
      * Register action.
      *
-     * @Route(
+     * @param \Symfony\Component\HttpFoundation\Request                   $request       HTTP request
+     * @param \Symfony\Component\Security\Guard\GuardAuthenticatorHandler $guardHandler  Authentication handler
+     * @param \App\Security\LoginFormAuthenticator                        $authenticator Login authenticator
+     *
+     * @return \Symfony\Component\HttpFoundation\Response HTTP response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     *@Route(
      *     "/register",
      *     methods={"GET", "POST"},
      *     name="app_register",
      * )
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
+    public function register(Request $request, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -62,4 +77,3 @@ class RegistrationController extends AbstractController
         ]);
     }
 }
-// password -> plainPassword

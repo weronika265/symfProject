@@ -80,7 +80,7 @@ class Contact
      *
      * @Assert\Type(type="string")
      * @Assert\Length(
-     *     min="10",
+     *     min="9",
      *     max="15",
      * )
      */

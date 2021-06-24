@@ -40,21 +40,29 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     /**
      * User repository.
+     *
+     * @var \App\Repository\UserRepository User repository
      */
     private UserRepository $userRepository;
 
     /**
      * URL generator.
+     *
+     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface URL generator
      */
     private UrlGeneratorInterface $urlGenerator;
 
     /**
      * CSRF token manager.
+     *
+     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface CSRF token manager
      */
     private CsrfTokenManagerInterface $csrfTokenManager;
 
     /**
      * Password encoder.
+     *
+     * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface Password encoder
      */
     private UserPasswordEncoderInterface $passwordEncoder;
 
@@ -63,7 +71,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      *
      * @param \Doctrine\ORM\EntityManagerInterface                                  $entityManager    Entity manager
      * @param \Symfony\Component\Routing\Generator\UrlGeneratorInterface            $urlGenerator     URL generator
-     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface            $csrfTokenManager CSRD token manager
+     * @param \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface            $csrfTokenManager CSRF token manager
      * @param \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface $passwordEncoder  Password encoder
      */
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
@@ -181,7 +189,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        /*throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);*/
         return new RedirectResponse($this->urlGenerator->generate('event_index'));
     }
 

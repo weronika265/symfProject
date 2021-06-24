@@ -1,5 +1,4 @@
 {% extends 'base.html.twig' %}
-{# TODO Also work as event subpage. Probably it shouldn't... change this. #}
 {% block title %}
     {{ 'title_event_list'|trans }}
 {% endblock %}
@@ -11,12 +10,12 @@
         <p>
             {{ 'message_recent_events'|trans }}
         </p>
-        {# TODO Current and upcoming events + separate menus #}
         {% if paginationCurrent is defined and paginationCurrent.items|length %}
 
             <div class="navigation text-center">
                 {{ knp_pagination_render(paginationCurrent) }}
             </div>
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -138,4 +137,3 @@
     {% endif %}
     </div>
 {% endblock %}
-{# TODO Same as personal_info/index.html.tig - change it correctly #}

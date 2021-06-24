@@ -3,8 +3,6 @@
  * Contact type.
  */
 
-// TODO Modify Contact form everywhere.
-
 namespace App\Form;
 
 use App\Entity\Contact;
@@ -23,9 +21,9 @@ class ContactType extends AbstractType
     /**
      * Tags data transformer.
      *
-     * @var \App\Form\DataTransformer\TagsDataTransformer
+     * @var \App\Form\DataTransformer\TagsDataTransformer Tags data transformer
      */
-    private $tagsDataTransformer;
+    private TagsDataTransformer $tagsDataTransformer;
 
     /**
      * TaskType constructor.

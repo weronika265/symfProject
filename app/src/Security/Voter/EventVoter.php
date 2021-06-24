@@ -19,7 +19,7 @@ class EventVoter extends Voter
     /**
      * Security helper.
      *
-     * @var \Symfony\Component\Security\Core\Security
+     * @var \Symfony\Component\Security\Core\Security Security helper
      */
     private $security;
 
@@ -76,7 +76,6 @@ class EventVoter extends Voter
                 break;
             default:
                 return false;
-                break;
         }
 
         return false;

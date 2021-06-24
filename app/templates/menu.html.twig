@@ -28,7 +28,6 @@
             {{ 'label_recent_upcoming_events'|trans }}
         </a>
         {% endif %}
-        {# TODO: fix it by adding is_granted('IS_AUTHENTICATED_FULLY') #}
         {% if (is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')) %}
         <a href="{{ url('user_index') }}"><i class="bi bi-person-lines-fill"></i>
             {{ 'label_users'|trans }}

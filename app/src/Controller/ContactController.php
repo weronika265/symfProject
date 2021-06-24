@@ -24,10 +24,8 @@ class ContactController extends AbstractController
 {
     /**
      * Contact service.
-     *
-     * @var \App\Service\ContactService
      */
-    private $contactService;
+    private ContactService $contactService;
 
     /**
      * ContactController constructor.
@@ -42,7 +40,7 @@ class ContactController extends AbstractController
     /**
      * Index action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request           HTTP request
+     * @param \Symfony\Component\HttpFoundation\Request $request HTTP request
      *
      * @return \Symfony\Component\HttpFoundation\Response HTTP response
      *
@@ -54,12 +52,6 @@ class ContactController extends AbstractController
      */
     public function index(Request $request): Response
     {
-        /*$pagination = $paginator->paginate(
-            $contactRepository->queryByAuthor($this->getUser()),
-            $request->query->getInt('page', 1),
-            ContactRepository::PAGINATOR_ITEMS_PER_PAGE
-        );*/
-
         $filters = [];
         $filters['tag_id'] = $request->query->getInt('filters_tag_id');
 

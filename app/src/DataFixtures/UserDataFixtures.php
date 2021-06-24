@@ -27,7 +27,6 @@ class UserDataFixtures extends AbstractBaseFixtures implements DependentFixtureI
             $userData->setData($this->faker->sentence);
             $userData->setFirstName($this->faker->firstName);
             $userData->setSurname($this->faker->lastName);
-            /*$userData->setUser($this->getRandomReference('users'));*/
 
             return $userData;
         });
@@ -40,6 +39,8 @@ class UserDataFixtures extends AbstractBaseFixtures implements DependentFixtureI
      * on which the implementing class depends on.
      *
      * @psalm-return array<class-string<FixtureInterface>>
+     *
+     * @return string[]
      */
     public function getDependencies()
     {
