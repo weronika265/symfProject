@@ -35,7 +35,7 @@ class ContactService
      *
      * @var \App\Service\TagService Tag service
      */
-    private $tagService;
+    private TagService $tagService;
 
     /**
      * ContactService constructor.

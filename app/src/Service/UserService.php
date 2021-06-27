@@ -67,6 +67,19 @@ class UserService
      */
     public function save(User $user)
     {
+        $this->userRepository->save($user);
+    }
+
+    /**
+     * Save user password.
+     *
+     * @param User $user User entity
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     */
+    public function savePassword(User $user)
+    {
         if ($plainPassword = $user->getPassword()) {
             $user->setPassword($this->encodePassword($user, $plainPassword));
         }

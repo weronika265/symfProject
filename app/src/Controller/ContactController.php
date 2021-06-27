@@ -24,6 +24,8 @@ class ContactController extends AbstractController
 {
     /**
      * Contact service.
+     *
+     * @var \App\Service\ContactService Contact service
      */
     private ContactService $contactService;
 

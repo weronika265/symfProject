@@ -6,7 +6,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\User;
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -20,7 +19,7 @@ class UserFixtures extends AbstractBaseFixtures
      *
      * @var \Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface User password encoder
      */
-    private $passwordEncoder;
+    private UserPasswordEncoderInterface $passwordEncoder;
 
     /**
      * UserFixtures constructor.

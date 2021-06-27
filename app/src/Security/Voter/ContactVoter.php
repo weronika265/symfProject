@@ -21,7 +21,7 @@ class ContactVoter extends Voter
      *
      * @var \Symfony\Component\Security\Core\Security Security helper
      */
-    private $security;
+    private Security $security;
 
     /**
      * OrderVoter constructor.

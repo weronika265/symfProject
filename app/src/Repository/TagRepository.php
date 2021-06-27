@@ -80,24 +80,6 @@ class TagRepository extends ServiceEntityRepository
     }
 
     /**
-     * Find tag by its name.
-     *
-     * @param string $name Tag name
-     *
-     * @return array Result
-     */
-    /*    public function findOneByName(string $name): array
-        {
-            $tag = [];
-
-            if (isset($this->tag[$name]) && count($this->tag[$name])) {
-                $tag = $this->tag[$name];
-            }
-
-            return $tag;
-        }*/
-
-    /**
      * Get or create new query builder.
      *
      * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder

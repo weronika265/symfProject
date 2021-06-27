@@ -117,19 +117,6 @@ class User implements UserInterface
     private $email;
 
     /**
-     * User data.
-     *
-     * @var UserData
-     *
-     * @ORM\OneToOne(
-     *     targetEntity="App\Entity\UserData",
-     *     mappedBy="user",
-     *     fetch="EXTRA_LAZY",
-     * )
-     */
-    private $userData;
-
-    /**
      * Getter for the id.
      *
      * @return int|null Result
@@ -251,26 +238,5 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
-    }
-
-    /**
-     * Getter for User Data.
-     *
-     * @return \App\Entity\UserData User Data
-     */
-    public function getUserData(): UserData
-    {
-        return $this->userData;
-    }
-
-    /**
-     * Setter for User Data.
-     *
-     * @param \App\Entity\UserData $userData User Data
-     */
-    public function setUserData(UserData $userData): void
-    {
-        $userData->setUser($this);
-        $this->userData = $userData;
     }
 }

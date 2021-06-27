@@ -31,7 +31,7 @@
                 {% for event in paginationCurrent.items %}
                     <tr>
                         <td>{{ event.name }}</td>
-                        <td>{{ event.date|date('d/m/Y') }}</td>
+                        <td>{{ event.date|format_date() }}</td>
                         <td>{{ event.description }}</td>
                         <td>{{ event.category.name }}</td>
                         <td>
@@ -94,7 +94,7 @@
             {% for event in paginationUpcoming.items %}
                 <tr>
                     <td>{{ event.name }}</td>
-                    <td>{{ event.date|date('Y/m/d') }}</td>
+                    <td>{{ event.date|format_date() }}</td>
                     <td>{{ event.description }}</td>
                     <td>{{ event.category.name }}</td>
                     <td>

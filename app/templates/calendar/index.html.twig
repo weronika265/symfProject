@@ -30,7 +30,7 @@
                 {% for event in pagination.items %}
                     <tr>
                         <td>{{ event.name }}</td>
-                        <td>{{ event.date|date('d/m/Y') }}</td>
+                        <td>{{ event.date|format_date() }}</td>
                         <td>{{ event.description }}</td>
                         <td>
                             <a href="{{ url('calendar_index', {'filters.category_id' : event.category.id}) }}" title="{{ event.category.name }}">
@@ -40,7 +40,7 @@
                         <td>
                             {% if event.tags is defined and event.tags|length %}
                                 {% for tag in event.tags %}
-                                    <a href="{{ url('category_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.name }}">
+                                    <a href="{{ url('calendar_index', {'filters.tag_id' : tag.id}) }}" title="{{ tag.name }}">
                                         {{ tag.name }}
                                     </a>
                                 {% endfor %}

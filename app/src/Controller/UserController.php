@@ -6,6 +6,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\UserPasswordType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use App\Service\UserService;
@@ -151,17 +152,24 @@ class UserController extends AbstractController
         $form = $this->createForm(UserType::class, $user, ['method' => 'PUT']);
         $form->handleRequest($request);
 
+        $formPass = $this->createForm(UserPasswordType::class, $user, ['method' => 'PUT']);
+        $formPass->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->save($user);
             $this->addFlash('success', 'message_updated_successfully');
+        }
 
-            return $this->redirectToRoute('user_index');    /* TODO: make different for user edit and admin edit. */
+        if ($formPass->isSubmitted() && $formPass->isValid()) {
+            $this->userService->savePassword($user);
+            $this->addFlash('success', 'message_updated_successfully');
         }
 
         return $this->render(
             'user/edit.html.twig',
             [
                 'form' => $form->createView(),
+                'formPass' => $formPass->createView(),
                 'user' => $user,
             ]
         );
